@@ -6,12 +6,11 @@
 /*   By: hlesny <hlesny@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/14 19:20:30 by hlesny            #+#    #+#             */
-/*   Updated: 2022/12/15 11:52:40 by hlesny           ###   ########.fr       */
+/*   Updated: 2022/12/15 15:20:39 by hlesny           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "lists.h"
-#include <stddef.h>
+#include "lists_utils.h"
 
 t_elem    *ft_new_elem(int a)
 {
