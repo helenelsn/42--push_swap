@@ -6,7 +6,7 @@
 /*   By: hlesny <hlesny@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/14 19:20:30 by hlesny            #+#    #+#             */
-/*   Updated: 2022/12/14 21:53:17 by hlesny           ###   ########.fr       */
+/*   Updated: 2022/12/15 11:52:40 by hlesny           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ t_fl    *ft_init_fl(void)
         return (NULL);
     fl->first = first;
     fl->first = last;
-    return (fl);
+    return (fl); // doit free first et last ?
 }
 
 void    ft_add_back(t_fl *fl, t_elem *new) // *fl equivalent a **first et **last
@@ -56,6 +56,24 @@ void    ft_add_back(t_fl *fl, t_elem *new) // *fl equivalent a **first et **last
         fl->last->next = new;
         fl->last = new;
     }
+}
+
+int     ft_lst_size(t_fl *fl)
+{
+    int     size;
+    t_elem  *elem;
+
+    if (!fl || !fl->first || !fl->last)
+        return (0);
+    size = 0;
+    elem = fl->first;
+    while (elem)
+    {
+        size++;
+        elem = elem->next;
+    }
+    free(elem);
+    return (size);
 }
 
 void    ft_del_last(t_fl *fl)

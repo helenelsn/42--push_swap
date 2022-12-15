@@ -6,7 +6,7 @@
 /*   By: hlesny <hlesny@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/14 20:54:51 by hlesny            #+#    #+#             */
-/*   Updated: 2022/12/14 21:54:10 by hlesny           ###   ########.fr       */
+/*   Updated: 2022/12/15 11:52:40 by hlesny           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,7 @@ typedef struct s_fl
     t_elem *last;
 }               t_fl;
 
+int     ft_lst_size(t_fl *fl);
 t_fl    *ft_init_fl(void);
 t_elem    *ft_new_elem(int a);
 void    ft_add_back(t_fl *fl, t_elem *new);
