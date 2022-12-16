@@ -6,7 +6,7 @@
 /*   By: hlesny <hlesny@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/14 20:54:51 by hlesny            #+#    #+#             */
-/*   Updated: 2022/12/15 23:58:28 by hlesny           ###   ########.fr       */
+/*   Updated: 2022/12/16 15:04:33 by hlesny           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,8 @@
 
 #include <stddef.h>
 #include <stdlib.h>
+#include <stdio.h>
+#include <unistd.h>
 
 typedef struct s_elem
 {
