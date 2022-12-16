@@ -6,7 +6,7 @@
 /*   By: hlesny <hlesny@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/14 22:02:14 by hlesny            #+#    #+#             */
-/*   Updated: 2022/12/15 15:20:39 by hlesny           ###   ########.fr       */
+/*   Updated: 2022/12/15 23:58:28 by hlesny           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,6 @@
 # define INSTRUSCTIONS_UTILS_H
 
 #include "lists_utils.h" 
-#include <stddef.h>
 
 enum e_instr
 {
