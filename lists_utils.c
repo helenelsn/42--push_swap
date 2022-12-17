@@ -6,7 +6,7 @@
 /*   By: hlesny <hlesny@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/14 19:20:30 by hlesny            #+#    #+#             */
-/*   Updated: 2022/12/16 01:16:00 by hlesny           ###   ########.fr       */
+/*   Updated: 2022/12/17 05:16:13 by hlesny           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,73 +26,40 @@ t_elem    *ft_new_elem(int a)
 	return (new);
 }
 
-t_fl    *ft_init_fl(void)
+void    ft_add_back(t_elem **first, t_elem *new) // *fl equivalent a **first et **last
 {
-	t_fl *fl;
-	t_elem *first;
-	t_elem *last; 
-	
-	fl = malloc(sizeof(t_fl));
-	first = ft_new_elem(0);
-	last = ft_new_elem(0);
-	if (!fl || !first || !last)
-		return (NULL);
-	fl->first = first;
-	fl->first = last;
-	return (fl); // doit free first et last ?
-}
-
-void    ft_add_back(t_fl *fl, t_elem *new) // *fl equivalent a **first et **last
-{
-	if (!fl)
+	if (!first)
 		return ;
-	if (!fl->last) // ou !fl->first,ie si la liste est actuellement vide, et que va seulement ajouter le premier element
+	if (!*first || !(*first)->next) // ie si la liste est actuellement vide, et que va seulement ajouter le premier element
 	{
-		fl->last = new;
-		fl->first = new;
-		new->prev = NULL;
-		new->next = NULL;
+		*first = new;
+		(*first)->prev = new;
+		(*first)->next = new;
 	}
 	else
 	{
-		fl->last->next = new;
-		new->prev = fl->last;
-		fl->last = new;
-		new->next = NULL;
+		new->prev = (*first)->prev; // first->prev est le dernier element de la liste
+		(*first)->prev->next = new; 
+		(*first)->prev = new;
+		new->next = *first; 
 	}
 }
 
-int     ft_lst_size(t_fl *fl)
+int     ft_lst_size(t_elem **first)
 {
 	int     size;
 	t_elem  *elem;
 
-	if (!fl || !fl->first || !fl->last)
+	if (!first || !*first)
 		return (0);
-	size = 0;
-	elem = fl->first;
-	while (elem)
+	if (*first && (*first)->next == *first)
+		return (1);
+	size = 1;
+	elem = (*first)->next;
+	while (elem != *first)
 	{
 		size++;
 		elem = elem->next;
 	}
-	free(elem);
 	return (size);
-}
-
-void    ft_del_last(t_fl *fl)
-{
-	t_elem *tmp;
-
-	if (!fl || !fl->last)
-		return;
-	tmp = fl->last;
-	fl->last = fl->last->prev; // l'avant dernier devient le dernier
-	fl->last->next = NULL;
-	free(tmp); // free "l'ancien dernier"
-}
-
-void    ft_clear(t_fl *fl)
-{
-	
 }

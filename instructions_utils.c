@@ -6,7 +6,7 @@
 /*   By: hlesny <hlesny@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/14 20:54:14 by hlesny            #+#    #+#             */
-/*   Updated: 2022/12/16 22:21:09 by hlesny           ###   ########.fr       */
+/*   Updated: 2022/12/17 04:59:04 by hlesny           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,28 +17,28 @@
 
 // Intervertit les 2 premiers éléments au sommet de la pile (ie a la find de la liste). 
 // Ne fait rien s’il n’y en a qu’un ou aucun.
-void    ft_swap(t_fl *fl, int a) 
+void    ft_swap(t_elem **first, int a) 
 {
-    t_elem *tmp;
+    t_elem *tmp1;
+    t_elem *tmp2;
     
-    if (!fl)
+    if (!first || !*first || ft_lst_size(first) < 2)
         return ;
     if (a)
         printf("sa\n");
     else
-        printf("sb\n");  
-    if (!fl->first || !fl->last || !ft_lst_size(fl))
-        return ;
+        printf("sb\n"); 
+    
+    tmp2 = (*first)->prev;
+    tmp1 = (*first)->prev->prev;
+    tmp1->prev->next = tmp2;
+    tmp2->prev = tmp1->prev;
+    tmp1->prev = tmp2;
+    tmp1->next = *first;
+    tmp2->next = tmp1;
+    (*first)->prev = tmp1;
+        
     /*
-    tmp = fl->last; // dernier element, qui va devenir l'avant dernier
-    fl->last = fl->last->prev; // met a jour *last
-    fl->last->prev->next = tmp; // reordonne la fin de la liste 
-    //fl->last->prev = tmp;//->prev->prev;
-    tmp->next = fl->last;
-    //tmp->prev = 
-    fl->last->next = NULL;
-    */
-
     tmp = fl->last;
     fl->last = fl->last->prev;
     tmp->prev = fl->last->prev;
@@ -47,109 +47,61 @@ void    ft_swap(t_fl *fl, int a)
     fl->last->prev->next = tmp;
     fl->last->prev = tmp;
     
-    //free(tmp);
-    
+    tmp = fl->first;
+    fl->first = fl->first->next;
+    tmp->next = fl->first->next;
+    tmp->prev = fl->first;
+    fl->first->next->prev = tmp;
+    fl->first->next = tmp;
+    fl->first->prev = NULL;
+    */
 }
 
 // push a : Prend le premier élément au sommet de a et le met sur b. Ne fait rien si a est vide.
-void    ft_push(t_fl *fl_a, t_fl *fl_b, int a)
+void    ft_push(t_elem **node_a, t_elem **node_b, int a)
 {
     t_elem *tmp;
-    t_elem *tmpb;
 
-    if (!fl_a || !fl_b)
+    if (!node_a || !*node_a || !node_b|| !ft_lst_size(node_a))
         return ;
     if (a)
         printf("pa\n");
     else
         printf("pb\n");  
-    if (!ft_lst_size(fl_a)) // ie si a est vide
-        return ;
-    
-    tmp = fl_a->last;
-    tmpb = fl_b->last;
-    if (ft_lst_size(fl_a) == 1)
-    {
-        fl_a->first = NULL;
-        fl_a->last = NULL;
-    }
+        
+    tmp = (*node_a)->prev;
+    if (ft_lst_size(node_a) == 1)
+        *node_a = NULL;
     else
     {
-        fl_a->last = fl_a->last->prev;
-        fl_a->last->next = NULL;
+        (*node_a)->prev = (*node_a)->prev->prev;
+        (*node_a)->prev->next = *node_a;
     }
-    if (!ft_lst_size(fl_b)) // ie si b est vide
-    {
-        fl_b->last = tmp;
-        fl_b->first = tmp;
-    }
-    else
-    {
-        fl_b->last->next = tmp;
-        fl_b->last = tmp;
-        fl_b->last->prev = tmpb;
-    }
+    ft_add_back(node_b, tmp);
 }
 
 // Décale d’une position vers le haut tous les élements de la pile. 
 // Le dernier élément de la liste devient le premier.
-void    ft_rotate(t_fl *fl, int a)
+void    ft_rotate(t_elem **node, int a)
 {
-    t_elem *tmp;
-
-    if (!fl || !fl->first || !fl->last || ft_lst_size(fl) < 2)
+    if (!node || !*node || ft_lst_size(node) < 2)
         return ;
     if (a)
         printf("ra\n");
     else
         printf("rb\n");  
-        
-    tmp = fl->last;
-    
-    fl->last = fl->last->prev;
-    fl->last->next = NULL;
-    tmp->next = fl->first;
-    tmp->prev = NULL;
-    fl->first = tmp;
+    *node = (*node)->prev;
 }
 
 // Décale d’une position vers le bas tous les élements de la pile. 
 // Le premier élément de la liste devient le dernier.
-void    ft_rev_rotate(t_fl *fl, int a)
+void    ft_rev_rotate(t_elem **node, int a)
 {
-    t_elem *tmp;
-
-    if (!fl || ft_lst_size(fl) < 2) // si fl null, ou si la pile a moins de deux elements 
+    if (!node || !*node || ft_lst_size(node) < 2)
         return ;
     if (a)
         printf("rra\n");
     else
         printf("rrb\n");  
-        
-    tmp = fl->first;
-    
-    fl->first = fl->first->next;
-    fl->first->prev = NULL;
-    
-    tmp->prev = fl->last;
-    fl->last->next = tmp;
-    
-    fl->last = tmp;
-    fl->last->next = NULL;
+    *node = (*node)->next;
 }
-
-
-void    double_swap(t_fl *fl_a, t_fl *fl_b) // utile ? pas sure
-{
-    
-}
-
-/*
-    tmp = fl->first;
-    tmp2 = fl->last;
-    fl->first = fl->first->next;
-    fl->last = tmp;
-    fl->last->prev = tmp2;
-    fl->last->next = NULL;
-    free(tmp);
-    */
