@@ -6,7 +6,7 @@
 /*   By: hlesny <hlesny@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/14 19:20:30 by hlesny            #+#    #+#             */
-/*   Updated: 2022/12/17 05:16:13 by hlesny           ###   ########.fr       */
+/*   Updated: 2022/12/21 23:42:12 by hlesny           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,4 +62,9 @@ int     ft_lst_size(t_elem **first)
 		elem = elem->next;
 	}
 	return (size);
+}
+
+void	ft_clear(t_elem **node_a, t_elem **node_b)
+{
+	// free and delete all elements of both lists
 }
