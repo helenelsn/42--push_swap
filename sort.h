@@ -6,7 +6,7 @@
 /*   By: hlesny <hlesny@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/19 00:23:16 by hlesny            #+#    #+#             */
-/*   Updated: 2022/12/22 04:29:38 by hlesny           ###   ########.fr       */
+/*   Updated: 2022/12/23 00:24:27 by hlesny           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,13 +15,15 @@
 
 typedef struct s_moves
 {
+    int min;
     int cost;
+    int pos_a;
+    int pos_b;
     int ra;
-    int rb;
-    int rr;
+    int rb; // rr = min(ra, rb)
     int rra;
-    int rrb;
-    int rrr;
+    int rrb; // rrr = min(rra, rrb)
+    int tab_min[6]
 }           t_moves;
 
 #endif
