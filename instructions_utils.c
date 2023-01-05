@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   instructions_utils.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hlesny <hlesny@student.42.fr>              +#+  +:+       +#+        */
+/*   By: Helene <Helene@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/14 20:54:14 by hlesny            #+#    #+#             */
-/*   Updated: 2022/12/21 01:19:45 by hlesny           ###   ########.fr       */
+/*   Updated: 2023/01/02 16:27:45 by Helene           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ void    ft_swap(t_elem **first, int a)
         return ;
     if (a)
         printf("sa\n");
-    else
+    else if (!a)
         printf("sb\n"); 
     
     /*
@@ -59,7 +59,7 @@ void    ft_push(t_elem **node_a, t_elem **node_b, int a)
         return ;
     if (a)
         printf("pa\n");
-    else
+    else if (!a)
         printf("pb\n");  
         
     tmp = *node_a;
@@ -83,11 +83,17 @@ void    ft_rotate(t_elem **node, int a)
         return ;
     if (a)
         printf("ra\n");
-    else
+    else if (!a)
         printf("rb\n");  
     *node = (*node)->next;
 }
 
+void    ft_rrotate(t_elem **node_a, t_elem **node_b)
+{
+    ft_rotate(node_a, 2);
+    ft_rotate(node_b, 2);
+    printf("rr\n");
+}
 
 // Décale d’une position vers le bas tous les élements de la pile. 
 // Le dernier élément de la liste devient le premier.
@@ -97,7 +103,14 @@ void    ft_rev_rotate(t_elem **node, int a)
         return ;
     if (a)
         printf("rra\n");
-    else
+    else if (!a)
         printf("rrb\n");  
     *node = (*node)->prev;
+}
+
+void    ft_rrev_rotate(t_elem **node_a, t_elem **node_b)
+{
+    ft_rev_rotate(node_a, 2);
+    ft_rev_rotate(node_b, 2);
+    printf("rrr\n");
 }

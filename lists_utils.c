@@ -3,24 +3,24 @@
 /*                                                        :::      ::::::::   */
 /*   lists_utils.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hlesny <hlesny@student.42.fr>              +#+  +:+       +#+        */
+/*   By: Helene <Helene@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/14 19:20:30 by hlesny            #+#    #+#             */
-/*   Updated: 2022/12/21 23:42:12 by hlesny           ###   ########.fr       */
+/*   Updated: 2023/01/03 19:10:29 by Helene           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lists_utils.h"
 #include <stdlib.h>
 
-t_elem    *ft_new_elem(int a)
+t_elem    *ft_new_elem(int nb)
 {
 	t_elem *new;
 
 	new = malloc(sizeof(t_elem));
 	if (!new)
 		return (NULL);
-	new->nb = a;
+	new->nb = nb;
 	new->prev = NULL;
 	new->next = NULL;
 	return (new);
