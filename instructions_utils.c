@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   instructions_utils.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: Helene <Helene@student.42.fr>              +#+  +:+       +#+        */
+/*   By: hlesny <hlesny@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/14 20:54:14 by hlesny            #+#    #+#             */
-/*   Updated: 2023/01/02 16:27:45 by Helene           ###   ########.fr       */
+/*   Updated: 2023/01/06 20:14:45 by hlesny           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ void    ft_swap(t_elem **first, int a)
 }
 
 
-// push a : Prend le premier élément au sommet de a et le met sur b. Ne fait rien si a est vide.
+// push b : Prend le premier élément au sommet de a et le met sur b. Ne fait rien si a est vide.
 void    ft_push(t_elem **node_a, t_elem **node_b, int a)
 {
     t_elem *tmp;
@@ -71,7 +71,7 @@ void    ft_push(t_elem **node_a, t_elem **node_b, int a)
         tmp->prev->next = *node_a;
         (*node_a)->prev = tmp->prev;
     }
-    ft_add_back(node_b, tmp);
+    ft_add_front(node_b, tmp);
 }
 
 

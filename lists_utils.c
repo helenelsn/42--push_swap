@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lists_utils.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: Helene <Helene@student.42.fr>              +#+  +:+       +#+        */
+/*   By: hlesny <hlesny@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/14 19:20:30 by hlesny            #+#    #+#             */
-/*   Updated: 2023/01/03 19:10:29 by Helene           ###   ########.fr       */
+/*   Updated: 2023/01/06 20:22:28 by hlesny           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,26 @@ t_elem    *ft_new_elem(int nb)
 	new->prev = NULL;
 	new->next = NULL;
 	return (new);
+}
+
+void	ft_add_front(t_elem **first, t_elem *new)
+{
+	if (!first)
+		return ;
+	if (!*first || !(*first)->next)
+	{
+		*first = new;
+		(*first)->prev = new;
+		(*first)->next = new;
+	}
+	else
+	{
+		new->next = *first;
+		new->prev = (*first)->prev;
+		(*first)->prev->next = new;
+		(*first)->prev = new;
+		*first = new;
+	}
 }
 
 void    ft_add_back(t_elem **first, t_elem *new) // *fl equivalent a **first et **last

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   sort.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: Helene <Helene@student.42.fr>              +#+  +:+       +#+        */
+/*   By: hlesny <hlesny@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/22 04:14:47 by hlesny            #+#    #+#             */
-/*   Updated: 2023/01/03 20:04:29 by Helene           ###   ########.fr       */
+/*   Updated: 2023/01/06 20:28:26 by hlesny           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,14 +14,14 @@
 // #include "instructions_utils.h"
 
 // max (a, b) = min (-a, -b)
-int ft_min(int a, int b)
+int     ft_min(int a, int b)
 {
     if (a > b)
         return (b);
     return (a);
 }
 
-int     in_range(int a, int b, int n) // [a, b] 
+int     in_range(int a, int b, int n) // ]a, b[ et pas [a, b] car ne peut pas avoir de doublons 
 {
     int i = a;
 
@@ -32,21 +32,6 @@ int     in_range(int a, int b, int n) // [a, b]
         i++;
     }
     return (0);
-}
-
-void	*ft_memset(void *s, int c, size_t n)
-{
-	unsigned char	*dst;
-	size_t			i;
-
-	dst = s;
-	i = 0;
-	while (i < n)
-	{
-		dst[i] = (unsigned char)c;
-		i++;
-	}
-	return (s);
 }
 
 void    init_moves(t_moves *moves, int pos_a)
@@ -64,36 +49,6 @@ void    init_moves(t_moves *moves, int pos_a)
     moves->pos_a = pos_a;
 }
 
-/*
-void    test_cases(int len_a, int len_b, t_moves *moves)
-{
-    int min;
-    int nb_case;
-    // tab[6] = [rr, ra, rb, rrr, rra, rrb]
-    int rr =  ft_min(ra, rb);
-    int rrr =  ft_min(rra, rrb);
-    int tab[2][6] = {{rr, ra != rr, rb != rr, 0, 0, 0},
-                    {0,0,0, rrr, rra != rrr, rrb != rrr}};
-    int i = -1;
-    while (++i < 2)
-    {
-        min = tab[i][0]*rr + tab[i][1]+tab[i][2]+tab[i][3]+tab[i][4]+tab[i][5];
-        
-    }
-    moves->cost = -ft_min(-ra, -rb); // ie max(ra, rb)
-    nb_case = 0;
-    min = -ft_min(-rra, -rrb);
-    if (moves->cost > min)
-        nb_case = 1;
-    
-}
-
-cas 1 : cost_min = max(ra, rb)
-cas 2 : cost_min = max(rra, rrb)
-cas 3 : cost_min = ra + rrb
-cas 4 : cost_min = rra + rb
-*/
-
 int     update_moves(t_moves *move, int ra, int rb, int rra, int rrb)
 {
     move->instruct[0] = ra;
@@ -109,10 +64,10 @@ int     update_moves(t_moves *move, int ra, int rb, int rra, int rrb)
 // implementer un .c et un .h pour les operations sur les matrices ? peut etre utile pour plus tard
 void    optimise_cost(t_moves *moves)
 {
-    int cases[4] = {-ft_min(-moves->ra, -moves->rb), // ra_rb
-                    -ft_min(-moves->rra, -moves->rrb), // rra, rrb
-                    moves->ra + moves->rrb, // ra_rrb
-                    moves->rra + moves->rb}; //rra_rb
+    int cases[4] = {-ft_min(-moves->ra, -moves->rb), // cas ra_rb
+                    -ft_min(-moves->rra, -moves->rrb), // cas rra, rrb
+                    moves->ra + moves->rrb, // cas ra_rrb
+                    moves->rra + moves->rb}; //cas rra_rb
     int instruct[4] = {1, 1, 0, 0}; // initialiser ou inutile ? très TRÈS utile
     int current_min = cases[0]; // set le min au cout du cas 1, puis compare avec le cout des 3 autres cas
     
@@ -141,7 +96,7 @@ void    get_cost(t_elem **node_a, t_elem **node_b, int nb, t_moves *moves_curren
     
     pos_b = 0;
     current_b = *node_b;
-    if (nb <= min_max_b->min || nb >= min_max_b->max) // ie si l'élément a insérer va devenir le nouveau min ou max
+    if (nb < min_max_b->min || nb > min_max_b->max) // ie si l'élément a insérer va devenir le nouveau min ou max
     {
         // se déplace dans la pile b jusqu'à avoir l'élément min au sommet 
         while (current_b->next != *node_b && current_b->nb != min_max_b->min)
@@ -149,6 +104,10 @@ void    get_cost(t_elem **node_a, t_elem **node_b, int nb, t_moves *moves_curren
             pos_b++;
             current_b = current_b->next;
         }
+        if (nb < min_max_b->min)
+            min_max_b->min = nb;
+        else if (nb > min_max_b->max)
+            min_max_b->max = nb;
     }
     else
     {
@@ -201,28 +160,163 @@ void    move_data(t_elem **node_a, t_elem **node_b, t_min_max *min_max_b)
     // puis effectue cette suite d'instructions, stockée dans moves
     rr = ft_min(moves.ra, moves.rb);
     rrr = ft_min(moves.rra, moves.rrb);
-    
-    /*
-    while (rr--)
-        ft_rrotate(node_a, node_b);
-    while (moves.ra-- || moves.rb--) // doit mettre a jour ra et rb quand initialise rr
+    while (rr)
     {
-        
+        ft_rrotate(node_a, node_b);
+        rr--;
+        moves.ra--;
+        moves.rb--;
     }
-    */
+    while (rrr)
+    {
+        // ou alors passer &move en argument des fonctions push, swap, rotate etc 
+        // et decrementer ra, rb, rr, etc direct ds ces fonctions la
+        ft_rrev_rotate(node_a, node_b); 
+        rrr--;
+        moves.rra--;
+        moves.rrb--;
+    }
+    while (moves.ra)
+    {
+        ft_rotate(node_a, 1);
+        moves.ra--;
+    }
+    while (moves.rb)
+    {
+        ft_rotate(node_b, 0);
+        moves.rb--;
+    }
+    while (moves.rra)
+    {
+        ft_rev_rotate(node_a, 1);
+        moves.rra--;
+    }
+    while (moves.rrb)
+    {
+        ft_rev_rotate(node_b, 0);
+        moves.rrb--;
+    }
+    ft_push(node_a, node_b, 0);
+}
+
+int     get_pos(t_elem **node, int nb)
+{
+    int pos;
+    t_elem *current;
+
+    if (!node || !(*node)) // ie si pointeur null ou alors que la pile est vide
+        return (-1);
+    if (ft_lst_size(node) == 1)
+    {
+        if ((*node)->nb == nb)
+            return (0);
+        return (-1);
+    }
+    pos = 0;
+    current = (*node)->next;
+    while (current->next != *node)
+    {
+        if (current->nb == nb)
+            return (pos);
+        pos++;
+        current = current->next;
+    }
+    return (-1);
 }
 
 void    sort_data(t_elem **node_a, t_elem **node_b)
 {
     t_min_max min_max_b; // écrire une fonction qui intialise à 0 ou par la peine car les initialise 2 lignes plus bas ?
+    t_elem *current;
     
-    ft_push(node_a, node_b, 1);    
-    ft_push(node_a, node_b, 1);
+    ft_push(node_a, node_b, 0);    
+    ft_push(node_a, node_b, 0);
     min_max_b.min = ft_min((*node_b)->nb, (*node_b)->next->nb);
     min_max_b.max = -ft_min(-(*node_b)->nb, -(*node_b)->next->nb);
 
     while (ft_lst_size(node_a))
         move_data(node_a, node_b, &min_max_b);
-    // rajouter une fonction qui remet la pile b dans l'ordre 
+    current = *node_b;
+    if (get_pos(node_b, min_max_b.min) < ft_lst_size(node_b) / 2)
+    {
+        while ((*node_b)->nb != min_max_b.min)
+            ft_rotate(node_b, 0);
+    }
+    else
+    {
+        while ((*node_b)->nb != min_max_b.min)
+            ft_rev_rotate(node_b, 0);
+    }
+    // rajouter une fonction qui remet la pile b dans l'ordre croissant
     // (ie avec des rb ou rrb, selon si le min_b / max_b est dans la première ou deuxième moitié de la pile)
+}
+
+void    sort_three(t_elem **node_a, t_elem **node_b)
+{  
+    int x;
+    int y;
+    int z;
+     
+    if (!node_a || !node_b)
+        return ;
+    x = (*node_a)->nb;
+    y = (*node_a)->next->nb;
+    z = (*node_a)->prev->nb;
+    if (x > y && y > z)
+    {
+        ft_push(node_a, node_b, 0);
+        ft_push(node_a, node_b, 0);
+        ft_push(node_a, node_b, 0);    
+    }
+    else if (x > y && y < z)
+    {
+        if (z < x)
+            ft_rotate(node_a, 1);
+        else
+            
+    }
+    else if (x < y && y > z)
+    {
+        if (z < x)
+        {
+            
+        }
+        else
+        {
+            ft_push(node_a, node_b, 0);
+            ft_swap(node_a, 1);
+            ft_push(node_b, node_a, 1);
+        }
+        
+    }
+}
+
+void    sort_five(t_elem **node_a, t_elem **node_b)
+{
+    
+}
+
+void    sort_seven(t_elem **node_a, t_elem **node_b)
+{
+    
+}
+
+void    sort_small_list(t_elem **node_a, t_elem **node_b)
+{
+    int size_a;
+    
+    if (!node_a || !node_b || !(*node_a)) // ne teste pas la pile b car elle est censee etre vide au debut
+        return ;
+    size_a = ft_lst_size(node_a);
+    if (size_a == 2)
+    {
+        if ((*node_a)->nb > (*node_a)->next->nb)
+            ft_rotate(node_a, 1);    
+    }
+    else if (size_a == 3)
+        sort_three(node_a, node_b);
+    else if (size_a < 6)
+        sort_five(node_a, node_b);
+    else 
+        sort_seven(node_a, node_b);
 }

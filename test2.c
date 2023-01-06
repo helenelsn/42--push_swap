@@ -1,43 +1,73 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_push_swap.c                                     :+:      :+:    :+:   */
+/*   test2.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: hlesny <hlesny@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/12/14 19:20:33 by hlesny            #+#    #+#             */
-/*   Updated: 2023/01/06 20:22:58 by hlesny           ###   ########.fr       */
+/*   Created: 2022/12/16 14:44:14 by hlesny            #+#    #+#             */
+/*   Updated: 2022/12/21 01:17:32 by hlesny           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "sort.h"
+#include "instructions_utils.h"
+//#include "lists_utils.h"
 
+// void    print_center(int nb, char *color);
+// void print_list4(t_fl *fl, t_fl *fl2);
+
+
+void print_both(t_elem **node_a, t_elem **node_b);
 void print_bot(t_elem *node_a, t_elem *node_b);
 
 int main(int argc, char **argv)
 {
-    int i;
-    t_elem *node_a;
-    t_elem *node_b;
-    
-    if (argc < 2)
+    if (argc < 2) 
         return 0;
-    
-    i = 1;
-    node_a = NULL;
-    node_b = NULL;
+    int i = 1;
+    t_elem *node_a = ft_new_elem(0);
+    t_elem *node_b = ft_new_elem(0);
     while (i < argc)
     {
         ft_add_back(&node_a, ft_new_elem(atoi(argv[i])));
         i++;
     }
-    if (ft_lst_size(&node_a) < 8)
-        sort_small_list(&node_a, &node_b);
-    else
-        sort_data(&node_a, &node_b);
+    print_bot(node_a, node_b);
+    ft_push(&node_a, &node_b, 1);
+    print_bot(node_a, node_b);
 }
 
-
+void print_both_save(t_elem **node_a, t_elem **node_b)
+{
+    t_elem *elem;
+    t_elem *elem2;
+    if (!node_a || !*node_a || !node_b || !*node_b)
+        return ;
+    elem = (*node_a);
+    elem2 = (*node_b);
+    while (elem->next != *node_a || (elem2 && elem2->next != *node_b))
+    {
+        if (elem->next != *node_a)
+        {
+            printf("%3d", elem->nb);
+            elem = elem->next;
+        }
+        else 
+            printf("   ");
+        printf("   ");
+        if (elem2 && elem2->next != *node_b)
+        {
+            printf("%3d\n", elem2->nb);
+            elem2 = elem2->next;
+        }
+        else
+            printf("   \n");
+    }
+    printf("%3d", elem->nb);
+    printf("   %3d\n", elem2->nb);
+    printf("\n a     b \n");
+    printf("___   ___\n\n");
+}
 
 void print_elem(t_elem * elem, t_elem *first)
 {
