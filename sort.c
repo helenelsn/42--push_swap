@@ -3,15 +3,96 @@
 /*                                                        :::      ::::::::   */
 /*   sort.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hlesny <hlesny@student.42.fr>              +#+  +:+       +#+        */
+/*   By: Helene <Helene@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/22 04:14:47 by hlesny            #+#    #+#             */
-/*   Updated: 2023/01/06 20:28:26 by hlesny           ###   ########.fr       */
+/*   Updated: 2023/01/08 19:32:50 by Helene           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "sort.h"
+#include <limits.h>
 // #include "instructions_utils.h"
+
+// check si certains parametres ne sont pas des doublons, 
+// ne sont pas des nombres, ou ne tiennent pas dans un int
+
+long long	ft_atoi(const char *nptr);
+
+int     ft_strlen(char *str)
+{
+    int i;
+
+    i = 0;
+    while (str[i])
+        i++;
+    return (i);
+}
+
+int     are_identicals(char *s1, char *s2)
+{
+    int i;
+
+    if (ft_strlen(s1) != ft_strlen(s2))
+        return (0);
+    i = 0;
+    while (s1[i]) // ou s2[i], pareil car font la meme taille
+    {
+        if (s1[i] != s2[i])
+            return (0);
+        i++;
+    }
+    return (1);
+}
+
+int     is_a_number(char *str)
+{
+    int i;
+
+    i = 0;
+    if (str[i] == '-')
+        i++;
+    while (str[i])
+    {
+        if (str[i] < '0' || str[i] > '9')
+            return (0);
+        i++;
+    }
+    return (1);
+}
+
+int     is_an_int(char *str)
+{
+    long long n;
+
+    n = ft_atoi(str);
+    if (n < INT_MIN || n > INT_MAX)
+        return (0);
+    return (1);
+}
+
+int     check_params(char **params, int argc)
+{
+    int i;
+
+    i = 1;
+    while (i < argc - 1)
+    {
+        if (are_identicals(params[i], params[argc - 1]))
+            return (0);
+        if (!is_a_number(params[i]))
+            return (0);
+        if (!is_an_int(params[i]))
+            return (0);
+        i++;
+    }
+    // teste ensuite pour params[argc - 1], ie le dernier paramètre
+    if (!is_a_number(params[i]))
+        return (0);
+    if (!is_an_int(params[i]))
+        return (0);
+    return (1);
+}
 
 // max (a, b) = min (-a, -b)
 int     ft_min(int a, int b)
@@ -32,6 +113,50 @@ int     in_range(int a, int b, int n) // ]a, b[ et pas [a, b] car ne peut pas av
         i++;
     }
     return (0);
+}
+
+int     get_pos(t_elem **node, int nb)
+{
+    int pos;
+    t_elem *current;
+
+    if (!node || !(*node)) // ie si pointeur null ou alors que la pile est vide
+        return (-1);
+    if (ft_lst_size(node) == 1)
+    {
+        if ((*node)->nb == nb)
+            return (0);
+        return (-1);
+    }
+    pos = 0;
+    current = (*node)->next;
+    while (current->next != *node)
+    {
+        if (current->nb == nb)
+            return (pos);
+        pos++;
+        current = current->next;
+    }
+    return (-1);
+}
+
+void    get_in_order(t_elem **node, int a, t_min_max m)
+{
+    t_elem *current;
+
+    if (!node)
+        return ;
+    current = *node;
+    if (get_pos(node, m.min) < ft_lst_size(node) / 2)
+    {
+        while ((*node)->nb != m.min)
+            ft_rotate(node, a);
+    }
+    else
+    {
+        while ((*node)->nb != m.min)
+            ft_rev_rotate(node, a);
+    }
 }
 
 void    init_moves(t_moves *moves, int pos_a)
@@ -199,31 +324,6 @@ void    move_data(t_elem **node_a, t_elem **node_b, t_min_max *min_max_b)
     ft_push(node_a, node_b, 0);
 }
 
-int     get_pos(t_elem **node, int nb)
-{
-    int pos;
-    t_elem *current;
-
-    if (!node || !(*node)) // ie si pointeur null ou alors que la pile est vide
-        return (-1);
-    if (ft_lst_size(node) == 1)
-    {
-        if ((*node)->nb == nb)
-            return (0);
-        return (-1);
-    }
-    pos = 0;
-    current = (*node)->next;
-    while (current->next != *node)
-    {
-        if (current->nb == nb)
-            return (pos);
-        pos++;
-        current = current->next;
-    }
-    return (-1);
-}
-
 void    sort_data(t_elem **node_a, t_elem **node_b)
 {
     t_min_max min_max_b; // écrire une fonction qui intialise à 0 ou par la peine car les initialise 2 lignes plus bas ?
@@ -236,6 +336,9 @@ void    sort_data(t_elem **node_a, t_elem **node_b)
 
     while (ft_lst_size(node_a))
         move_data(node_a, node_b, &min_max_b);
+    
+    /* remet la pile b dans l'ordre croissant (ie avec des rb ou rrb, 
+     selon si le min_b / max_b est dans la première ou deuxième moitié de la pile)
     current = *node_b;
     if (get_pos(node_b, min_max_b.min) < ft_lst_size(node_b) / 2)
     {
@@ -247,58 +350,76 @@ void    sort_data(t_elem **node_a, t_elem **node_b)
         while ((*node_b)->nb != min_max_b.min)
             ft_rev_rotate(node_b, 0);
     }
-    // rajouter une fonction qui remet la pile b dans l'ordre croissant
-    // (ie avec des rb ou rrb, selon si le min_b / max_b est dans la première ou deuxième moitié de la pile)
+    */
+   get_in_order(node_b, 0, min_max_b);
 }
 
-void    sort_three(t_elem **node_a, t_elem **node_b)
+void    sort_three(t_elem **node)
 {  
     int x;
     int y;
     int z;
      
-    if (!node_a || !node_b)
+    if (!node)
         return ;
-    x = (*node_a)->nb;
-    y = (*node_a)->next->nb;
-    z = (*node_a)->prev->nb;
+    x = (*node)->nb;
+    y = (*node)->next->nb;
+    z = (*node)->prev->nb;
     if (x > y && y > z)
     {
-        ft_push(node_a, node_b, 0);
-        ft_push(node_a, node_b, 0);
-        ft_push(node_a, node_b, 0);    
+        ft_swap(node, 1);
+        ft_rev_rotate(node, 1);  
     }
     else if (x > y && y < z)
     {
         if (z < x)
-            ft_rotate(node_a, 1);
+            ft_rotate(node, 1);
         else
-            
+            ft_swap(node, 1);
     }
     else if (x < y && y > z)
     {
         if (z < x)
-        {
-            
-        }
+            ft_rotate(node, 1);
         else
         {
-            ft_push(node_a, node_b, 0);
-            ft_swap(node_a, 1);
-            ft_push(node_b, node_a, 1);
+            ft_swap(node, 1);
+            ft_rev_rotate(node, 1);
         }
-        
     }
 }
 
 void    sort_five(t_elem **node_a, t_elem **node_b)
 {
+    t_min_max min_max_a;
     
+    ft_push(node_a, node_b, 0);
+    ft_push(node_a, node_b, 0);
+    sort_three(node_a); // la pile a à maintenant 3 éléments et est triée
+
+    min_max_a.min = (*node_a)->nb; // car la pile a est déjà triée
+    min_max_a.max = (*node_a)->prev->nb; // car la pile a est déjà triée
+
+    while (ft_lst_size(node_b))
+        move_data(node_b, node_a, &min_max_a); 
+    get_in_order(node_a, 1, min_max_a);
 }
 
-void    sort_seven(t_elem **node_a, t_elem **node_b)
+void sort_seven(t_elem **node_a, t_elem **node_b)
 {
+    t_min_max min_max_b;
     
+    ft_push(node_a, node_b, 0);
+    ft_push(node_a, node_b, 0);
+    ft_push(node_a, node_b, 0);
+    sort_three(node_b); // la pile b à maintenant 3 éléments et est triée
+
+    min_max_b.min = (*node_b)->nb; // car la pile b est déjà triée
+    min_max_b.max = (*node_b)->prev->nb; // car la pile b est déjà triée
+
+    while (ft_lst_size(node_a))
+        move_data(node_a, node_b, &min_max_b); 
+    get_in_order(node_b, 0, min_max_b);
 }
 
 void    sort_small_list(t_elem **node_a, t_elem **node_b)
@@ -314,9 +435,9 @@ void    sort_small_list(t_elem **node_a, t_elem **node_b)
             ft_rotate(node_a, 1);    
     }
     else if (size_a == 3)
-        sort_three(node_a, node_b);
+        sort_three(node_a);
     else if (size_a < 6)
         sort_five(node_a, node_b);
-    else 
+    else
         sort_seven(node_a, node_b);
 }

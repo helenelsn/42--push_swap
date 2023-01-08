@@ -3,16 +3,18 @@
 /*                                                        :::      ::::::::   */
 /*   ft_push_swap.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hlesny <hlesny@student.42.fr>              +#+  +:+       +#+        */
+/*   By: Helene <Helene@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/14 19:20:33 by hlesny            #+#    #+#             */
-/*   Updated: 2023/01/06 20:22:58 by hlesny           ###   ########.fr       */
+/*   Updated: 2023/01/08 18:41:38 by Helene           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "sort.h"
 
 void print_bot(t_elem *node_a, t_elem *node_b);
+
+// !!!!!! REMPLACER LES ATOI PAR MON FT_ATOI DANS LE CODE
 
 int main(int argc, char **argv)
 {
@@ -22,6 +24,11 @@ int main(int argc, char **argv)
     
     if (argc < 2)
         return 0;
+    if (!check_params(argv, argc))
+    {
+        write(2, "Error\n", 6);
+        return (-1);
+    }
     
     i = 1;
     node_a = NULL;
@@ -35,6 +42,7 @@ int main(int argc, char **argv)
         sort_small_list(&node_a, &node_b);
     else
         sort_data(&node_a, &node_b);
+    print_bot(node_a, node_b);
 }
 
 
@@ -49,8 +57,8 @@ void print_elem(t_elem * elem, t_elem *first)
 
 void print_bot(t_elem *node_a, t_elem *node_b)
 {
-    t_elem *elem_a;
-    t_elem *elem_b;
+    t_elem *elem_a = NULL;
+    t_elem *elem_b = NULL;
     
     print_elem(node_a, NULL);
     print_elem(node_b, NULL);
