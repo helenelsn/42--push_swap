@@ -6,7 +6,7 @@
 /*   By: hlesny <hlesny@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/22 04:14:47 by hlesny            #+#    #+#             */
-/*   Updated: 2023/01/09 23:07:24 by hlesny           ###   ########.fr       */
+/*   Updated: 2023/01/09 23:50:50 by hlesny           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,15 +102,15 @@ int     ft_min(int a, int b)
     return (a);
 }
 
-int     in_range(int a, int b, int n) // ]a, b[ et pas [a, b] car ne peut pas avoir de doublons 
+int     in_range(int a, int b, int n) // modif : ]b, a[ //]a, b[ et pas [a, b] car ne peut pas avoir de doublons 
 {
     int i = a;
 
-    while (i <= b)
+    while (i >= b)
     {
         if (i == n)
             return (1);
-        i++;
+        i--;
     }
     return (0);
 }
@@ -137,6 +137,7 @@ int     get_pos(t_elem **node, int nb)
         pos++;
         current = current->next;
     }
+    
     return (-1);
 }
 
@@ -147,14 +148,14 @@ void    get_in_order(t_elem **node, int a, t_min_max m) // mettre dans ordre dec
     if (!node)
         return ;
     current = *node;
-    if (get_pos(node, m.min) < ft_lst_size(node) / 2)
+    if (get_pos(node, m.max) < ft_lst_size(node) / 2)
     {
-        while ((*node)->nb != m.min)
+        while ((*node)->nb != m.max)
             ft_rotate(node, a);
     }
     else
     {
-        while ((*node)->nb != m.min)
+        while ((*node)->nb != m.max)
             ft_rev_rotate(node, a);
     }
 }
@@ -224,7 +225,7 @@ void    get_cost(t_elem **node_a, t_elem **node_b, int nb, t_moves *moves_curren
     if (nb < min_max_b->min || nb > min_max_b->max) // ie si l'élément a insérer va devenir le nouveau min ou max
     {
         // se déplace dans la pile b jusqu'à avoir l'élément min au sommet 
-        while (current_b->next != *node_b && current_b->nb != min_max_b->min)
+        while (current_b->next != *node_b && current_b->nb != min_max_b->max)
         {
             pos_b++;
             current_b = current_b->next;
@@ -351,12 +352,16 @@ void    sort_data(t_elem **node_a, t_elem **node_b)
     }
     */
    get_in_order(node_b, 0, min_max_b);
+   while (ft_lst_size(node_b))
+        ft_push(node_b, node_a, 1);
 }
 
+/*
 void    move_small_data(t_elem **node_a, t_elem **node_b)
 {
     
 }
+*/
 
 void    sort_three(t_elem **node)
 {  
