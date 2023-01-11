@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lists_utils.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hlesny <hlesny@student.42.fr>              +#+  +:+       +#+        */
+/*   By: Helene <Helene@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/14 19:20:30 by hlesny            #+#    #+#             */
-/*   Updated: 2023/01/09 20:24:47 by hlesny           ###   ########.fr       */
+/*   Updated: 2023/01/10 23:47:18 by Helene           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,9 +84,21 @@ int     ft_lst_size(t_elem **first)
 	return (size);
 }
 
-/*
-void	ft_clear(t_elem **node_a, t_elem **node_b)
+// free and delete all elements of a list
+void	ft_clear(t_elem **node)
 {
-	// free and delete all elements of both lists
+	t_elem *tmp;
+	
+	if (!node || !*node) // ie si la liste n'existe pas, ou si elle est vide
+		return ;
+	tmp = *node;
+	while (tmp->next != *node)
+	{
+		*node = (*node)->next;
+		free(tmp);
+		tmp = *node;
+	}
+	free(tmp);
+	tmp = NULL;
+	// node = NULL;  ??
 }
-*/

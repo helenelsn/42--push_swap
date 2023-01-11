@@ -6,7 +6,7 @@
 /*   By: Helene <Helene@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/19 00:23:16 by hlesny            #+#    #+#             */
-/*   Updated: 2023/01/08 18:27:18 by Helene           ###   ########.fr       */
+/*   Updated: 2023/01/10 23:12:16 by Helene           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,14 @@
 # define SORT_H
 
 #include "instructions_utils.h"
+
+typedef struct s_nodes
+{
+    t_elem **node_a;
+    t_elem **node_b;
+    int size_a;
+    int size_b;
+}               t_nodes; // pointeurs sur premiers éléments des piles a et b, ainsi que la taille des deux piles, mise a jour
 
 typedef struct s_moves
 {
@@ -41,11 +49,13 @@ void    ft_init_moves(t_moves *moves, int pos_a);
 int     update_moves(t_moves *move, int ra, int rb, int rra, int rrb);
 void    optimise_cost(t_moves *moves);
 void    get_cost(t_elem **node_a, t_elem **node_b, int nb, t_moves *moves_current, t_min_max *min_max_b);
-void    get_min_cost(t_elem **node_a, t_elem **node_b, t_moves *moves, t_min_max *min_max_b);
-void    move_data(t_elem **node_a, t_elem **node_b, t_min_max *min_max_b);
+void    get_min_cost(t_elem **node_a, t_elem **node_b, t_moves *moves, t_min_max *min_max_b, int a_to_b);
+void    move_data(t_elem **src, t_elem **dest, t_min_max *min_max_dest, int a_to_b);
 void    sort_data(t_elem **node_a, t_elem **node_b);
 void    sort_small_list(t_elem **node_a, t_elem **node_b);
 void    sort_three(t_elem **node);
-void    sort_five(t_elem **node_a, t_elem **node_b);
-void    sort_seven(t_elem **node_a, t_elem **node_b);
+void    sort_small(t_elem **node_a, t_elem **node_b);
+int     get_min(t_elem **node);
 int     get_pos(t_elem **node, int nb);
+void    get_in_order_small(t_elem **node, int a, t_min_max m);
+void    get_in_order(t_elem **node, int a, t_min_max m);

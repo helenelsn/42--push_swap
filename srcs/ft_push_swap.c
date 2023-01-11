@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_push_swap.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hlesny <hlesny@student.42.fr>              +#+  +:+       +#+        */
+/*   By: Helene <Helene@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/14 19:20:33 by hlesny            #+#    #+#             */
-/*   Updated: 2023/01/09 20:24:07 by hlesny           ###   ########.fr       */
+/*   Updated: 2023/01/10 23:48:38 by Helene           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,8 @@ int main(int argc, char **argv)
     else
         sort_data(&node_a, &node_b);
     print_bot(node_a, node_b);
+    ft_clear(&node_a);
+    ft_clear(&node_b);
 }
 
 

@@ -11,8 +11,8 @@ OBJS = $(addprefix $(OBJDIR), $(SRCS:.c=.o))# c que du texte bande de batards
 
 all: $(NAME)
 
-$(NAME): $(OBJS) #./objdir/ft_atoi.o
-	$(CC) -o $@ $^
+$(NAME): $(OBJS) 
+	$(CC) -o $@ $^ 
 
 # make the directory an order-only prerequisite on all the targets : 
 # Now the rule to create the objdir directory will be run, if needed, 
@@ -27,11 +27,12 @@ $(OBJDIR)%.o: $(SRCDIR)%.c
 	$(CC) $(CFLAGS) -c -o $@ -I$(INCDIR) $<
 
 clean:
-	$(RM) -r $(OBJDIR)
+	$(RM) -r $(OBJDIR) 
+# -r bc is a directory
 
 fclean: clean
 	$(RM) $(NAME)
 
-re: clean all
+re: fclean all
 
 .PHONY : all re clean fclean

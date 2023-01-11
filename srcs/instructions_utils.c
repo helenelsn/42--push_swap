@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   instructions_utils.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hlesny <hlesny@student.42.fr>              +#+  +:+       +#+        */
+/*   By: Helene <Helene@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/14 20:54:14 by hlesny            #+#    #+#             */
-/*   Updated: 2023/01/09 22:20:17 by hlesny           ###   ########.fr       */
+/*   Updated: 2023/01/10 22:09:29 by Helene           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,27 +52,27 @@ void    ft_swap(t_elem **first, int a)
 
 
 // push b : Prend le premier élément au sommet de a et le met sur b. Ne fait rien si a est vide.
-void    ft_push(t_elem **node_a, t_elem **node_b, int a)
+void    ft_push(t_elem **src, t_elem **dest, int a)
 {
     t_elem *tmp;
 
-    if (!node_a || !*node_a || !node_b|| !ft_lst_size(node_a))
+    if (!src || !*src || !dest|| !ft_lst_size(src))
         return ;
     if (a)
         printf("pa\n");
     else if (!a)
         printf("pb\n");  
         
-    tmp = *node_a;
-    if (ft_lst_size(node_a) == 1)
-            *node_a = NULL;
+    tmp = *src;
+    if (ft_lst_size(src) == 1)
+            *src = NULL;
     else
     {
-        *node_a = (*node_a)->next;
-        tmp->prev->next = *node_a;
-        (*node_a)->prev = tmp->prev;
+        *src = (*src)->next;
+        tmp->prev->next = *src;
+        (*src)->prev = tmp->prev;
     }
-    ft_add_front(node_b, tmp);
+    ft_add_front(dest, tmp);
 }
 
 
