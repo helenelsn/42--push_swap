@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   instructions_utils.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: Helene <Helene@student.42.fr>              +#+  +:+       +#+        */
+/*   By: hlesny <hlesny@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/14 20:54:14 by hlesny            #+#    #+#             */
-/*   Updated: 2023/01/10 22:09:29 by Helene           ###   ########.fr       */
+/*   Updated: 2023/01/11 23:34:27 by hlesny           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,7 +82,7 @@ void    ft_rotate(t_elem **node, int a)
 {
     if (!node || !*node || ft_lst_size(node) < 2)
         return ;
-    if (a)
+    if (a == 1)
         printf("ra\n");
     else if (!a)
         printf("rb\n");  
@@ -102,7 +102,7 @@ void    ft_rev_rotate(t_elem **node, int a)
 {
     if (!node || !*node || ft_lst_size(node) < 2)
         return ;
-    if (a)
+    if (a == 1)
         printf("rra\n");
     else if (!a)
         printf("rrb\n");  

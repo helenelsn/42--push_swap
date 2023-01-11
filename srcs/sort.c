@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   sort.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: Helene <Helene@student.42.fr>              +#+  +:+       +#+        */
+/*   By: hlesny <hlesny@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/22 04:14:47 by hlesny            #+#    #+#             */
-/*   Updated: 2023/01/10 23:30:50 by Helene           ###   ########.fr       */
+/*   Updated: 2023/01/11 23:36:49 by hlesny           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@
 // ne sont pas des nombres, ou ne tiennent pas dans un int
 
 long long	ft_atoi(const char *nptr);
+void print_bot(t_elem *node_a, t_elem *node_b);
 
 int     ft_strlen(char *str)
 {
@@ -71,26 +72,30 @@ int     is_an_int(char *str)
     return (1);
 }
 
-int     check_params(char **params, int argc)
+int     check_params(char **argv, int argc)
 {
     int i;
+    int j;
 
-    i = 1;
-    while (i < argc - 1)
+    if (!is_a_number(argv[1]))
+        return (0);
+    if (!is_an_int(argv[1]))
+        return (0);
+    i = 2;
+    while (i < argc)
     {
-        if (are_identicals(params[i], params[argc - 1]))
+        j = i;
+        while (--j > 0)
+        {
+            if (are_identicals(argv[j], argv[i]))
+                return (0);
+        }
+        if (!is_a_number(argv[i]))
             return (0);
-        if (!is_a_number(params[i]))
-            return (0);
-        if (!is_an_int(params[i]))
+        if (!is_an_int(argv[i]))
             return (0);
         i++;
     }
-    // teste ensuite pour params[argc - 1], ie le dernier paramètre
-    if (!is_a_number(params[i]))
-        return (0);
-    if (!is_an_int(params[i]))
-        return (0);
     return (1);
 }
 
@@ -220,25 +225,21 @@ void    optimise_cost(t_moves *moves)
                     -ft_min(-moves->rra, -moves->rrb), // cas rra, rrb
                     moves->ra + moves->rrb, // cas ra_rrb
                     moves->rra + moves->rb}; //cas rra_rb
-    int instruct[4] = {1, 1, 0, 0}; // initialiser ou inutile ? très TRÈS utile
+    update_moves(moves, 1, 1, 0, 0);
     int current_min = cases[0]; // set le min au cout du cas 1, puis compare avec le cout des 3 autres cas
     
-    while (1)
-    {
-        if (current_min > cases[1] && update_moves(moves, 0, 0, 1, 1))
-            current_min = cases[1];
-        else if (current_min > cases[2] && update_moves(moves, 1, 0, 0, 1))
-            current_min = cases[2];
-        else if (current_min > cases[3] && update_moves(moves, 0, 1, 1, 0))
-            current_min = cases[3];
-        else // ie si le current cout minimal est le cout minimal parmi tous les cas 
-            break;
-    }
+    if (current_min > cases[1] && update_moves(moves, 0, 0, 1, 1))
+        current_min = cases[1];
+    if (current_min > cases[2] && update_moves(moves, 1, 0, 0, 1))
+        current_min = cases[2];
+    if (current_min > cases[3] && update_moves(moves, 0, 1, 1, 0))
+        current_min = cases[3];
+    
     moves->cost = current_min;
-    moves->ra *= instruct[0];
-    moves->rb *= instruct[1];
-    moves->rra *= instruct[2];
-    moves->rrb *= instruct[3];
+    moves->ra *= moves->instruct[0];
+    moves->rb *= moves->instruct[1];
+    moves->rra *= moves->instruct[2];
+    moves->rrb *= moves->instruct[3];
 }
 
 void    get_cost_small(t_elem **node_a, t_elem **node_b, int nb, t_moves *moves_current, t_min_max *m)
@@ -279,8 +280,10 @@ void    get_cost(t_elem **node_a, t_elem **node_b, int nb, t_moves *moves_curren
     int pos_b;
     t_elem *current_b;
     
+    //printf("%d a inserer\n", nb);
     pos_b = 0;
     current_b = *node_b;
+    //printf("min = %d, max = %d\n", min_max_b->min, min_max_b->max);
     if (nb < min_max_b->min || nb > min_max_b->max) // ie si l'élément a insérer va devenir le nouveau min ou max
     {
         // se déplace dans la pile b jusqu'à avoir l'élément max au sommet 
@@ -294,7 +297,7 @@ void    get_cost(t_elem **node_a, t_elem **node_b, int nb, t_moves *moves_curren
     {
         // itère sur pos_b tant que n'arrive pas à un élement n tel que nb (de la pile a) 
         // est dans l'intervalle [n_prev, n]
-        while (current_b->next != *node_b && !in_range(current_b->nb, current_b->prev->nb, nb)) 
+        while (current_b->next != *node_b && (current_b->nb == min_max_b->max || !in_range(current_b->nb, current_b->prev->nb, nb)))
         {
             pos_b++;
             current_b = current_b->next;
@@ -314,14 +317,16 @@ void    get_min_cost(t_elem **node_a, t_elem **node_b, t_moves *moves, t_min_max
     int pos_a;
 
     pos_a = 0; // 0 correspond à l'élément au sommet de la pile
-    current_a = *node_a;
+    
     init_moves(&moves_current, pos_a);
     if (a_to_b)
-        get_cost(node_a, node_b, current_a->nb, &moves_current, min_max_b);
+        get_cost(node_a, node_b, (*node_a)->nb, &moves_current, min_max_b);
     else
-        get_cost_small(node_a, node_b, current_a->nb, &moves_current, min_max_b);
+        get_cost_small(node_a, node_b, (*node_a)->nb, &moves_current, min_max_b);
     *moves = moves_current;
-    while (current_a->next != *node_a)
+    current_a = (*node_a)->next;
+    
+    while (current_a != *node_a)
     {
         pos_a++;
         init_moves(&moves_current, pos_a);
@@ -340,27 +345,21 @@ void    get_min_cost(t_elem **node_a, t_elem **node_b, t_moves *moves, t_min_max
 void    move_data(t_elem **src, t_elem **dest, t_min_max *min_max_dest, int a_to_b) 
 {
     t_moves moves;
-    int rr;
-    int rrr;
-   
+    
     init_moves(&moves, 0);
     get_min_cost(src, dest, &moves, min_max_dest, a_to_b); // détermine quelles instructions éffectuer sur les piles a et b afin d'obtenir un cout minimal
     // puis effectue cette suite d'instructions, stockée dans moves
-    rr = ft_min(moves.ra, moves.rb);
-    rrr = ft_min(moves.rra, moves.rrb);
-    while (rr)
+    while (moves.ra && moves.rb)
     {
         ft_rrotate(src, dest);
-        rr--;
         moves.ra--;
         moves.rb--;
     }
-    while (rrr)
+    while (moves.rra && moves.rrb)
     {
         // ou alors passer &move en argument des fonctions push, swap, rotate etc 
         // et decrementer ra, rb, rr, etc direct ds ces fonctions la
         ft_rrev_rotate(src, dest); 
-        rrr--;
         moves.rra--;
         moves.rrb--;
     }
@@ -388,6 +387,7 @@ void    move_data(t_elem **src, t_elem **dest, t_min_max *min_max_dest, int a_to
         ft_push(src, dest, 0);
     else
         ft_push(src, dest, 1);
+    //print_bot(*src, *dest);
     if ((*dest)->nb < min_max_dest->min)
             min_max_dest->min = (*dest)->nb;
     else if ((*dest)->nb > min_max_dest->max)
@@ -421,8 +421,10 @@ void    sort_data(t_elem **node_a, t_elem **node_b)
     }
     */
    get_in_order(node_b, 0, min_max_b);
+   //print_bot(*node_a, *node_b);
    while (ft_lst_size(node_b))
         ft_push(node_b, node_a, 1);
+    //print_bot(*node_a, *node_b);
 }
 
 /*

@@ -26,6 +26,9 @@ $(OBJDIR) :
 $(OBJDIR)%.o: $(SRCDIR)%.c
 	$(CC) $(CFLAGS) -c -o $@ -I$(INCDIR) $<
 
+test : all
+	./my_tester.sh
+
 clean:
 	$(RM) -r $(OBJDIR) 
 # -r bc is a directory
