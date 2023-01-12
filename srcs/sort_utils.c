@@ -6,16 +6,24 @@
 /*   By: hlesny <hlesny@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/10 22:10:31 by Helene            #+#    #+#             */
-/*   Updated: 2023/01/12 16:06:42 by hlesny           ###   ########.fr       */
+/*   Updated: 2023/01/12 20:47:57 by hlesny           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/sort_utils.h"
 
-// max (a, b) = min (-a, -b)
 int     ft_min(int a, int b)
 {
     if (a > b)
         return (b);
     return (a);
 }
+
+// check si la LISTE est triee (par ordre croissant)
+// int     is_sorted(t_elem **node)
+// {
+//     t_elem *current;
+
+//     if ()
+//     current = 
+// }

@@ -6,7 +6,7 @@
 /*   By: hlesny <hlesny@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/14 19:20:30 by hlesny            #+#    #+#             */
-/*   Updated: 2023/01/12 16:33:27 by hlesny           ###   ########.fr       */
+/*   Updated: 2023/01/12 20:26:08 by hlesny           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,31 +84,46 @@ int     ft_lst_size(t_elem **first)
 	return (size);
 }
 
-
-// la transformer en liste simplement chainee et ensuite seulemt tout free ? 
-
-// free and delete all elements of a list
-void	ft_clear(t_elem **node)
+// free and deletes first element of the list (ie *node)
+void	ft_del_first(t_elem **node)
 {
 	t_elem *tmp;
-	int size = ft_lst_size(node);
 	
-	if (!node || !*node) // ie si la liste n'existe pas, ou si elle est vide
+	if (!node)
 		return ;
-	tmp = *node;
-	while (size )
+	if ((*node)->next == *node) // ie si la liste n'a qu'un seul element
 	{
+		(*node)->prev = NULL;
+		(*node)->next = NULL;
+		free(*node);
+		*node = NULL;
+		node = NULL;
+	}
+	else
+	{
+		tmp = *node;
+		(*node)->prev->next = (*node)->next;
+		(*node)->next->prev = (*node)->prev;
 		*node = (*node)->next;
 		tmp->prev = NULL;
 		tmp->next = NULL;
 		free(tmp);
 		tmp = NULL;
-		tmp = *node;
-		size--;
 	}
-	// free(tmp->prev);
-	// tmp->prev = NULL;
-	// tmp->next = NULL;
-	// free(tmp);
-	// tmp = NULL;
+}
+
+// free and delete all elements of a list
+void	ft_clear(t_elem **node)
+{
+	//t_elem *tmp;
+	//int size = ft_lst_size(node);
+	
+	if (!node || !*node) // ie si la liste n'existe pas, ou si elle est vide
+		return ;
+	while (node && *node)
+	{
+		ft_del_first(node);
+		//size--;
+	}
+
 }

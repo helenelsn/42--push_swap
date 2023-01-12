@@ -6,7 +6,7 @@
 /*   By: hlesny <hlesny@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/14 20:54:14 by hlesny            #+#    #+#             */
-/*   Updated: 2023/01/12 15:33:17 by hlesny           ###   ########.fr       */
+/*   Updated: 2023/01/12 20:20:56 by hlesny           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ void    ft_push(t_elem **src, t_elem **dest, int a)
         
     tmp = *src;
     if (ft_lst_size(src) == 1)
-            *src = NULL;
+            *src = NULL; // est-ce aue ca met aussi tmp a NULL ? car ne veut pas ca
     else
     {
         *src = (*src)->next;
