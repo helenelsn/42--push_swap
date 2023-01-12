@@ -1,6 +1,6 @@
 #!/bin/bash
 
-random_seq=`seq -500 499 | shuf | tr '\n' ' '`
+random_seq=`seq 2147483140 2147483647 | shuf | tr '\n' ' '`
 
 echo $random_seq
 

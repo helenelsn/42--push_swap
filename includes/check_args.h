@@ -1,21 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   sort_utils.c                                       :+:      :+:    :+:   */
+/*   check_args.h                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: hlesny <hlesny@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/01/10 22:10:31 by Helene            #+#    #+#             */
-/*   Updated: 2023/01/12 16:06:42 by hlesny           ###   ########.fr       */
+/*   Created: 2023/01/12 13:26:47 by hlesny            #+#    #+#             */
+/*   Updated: 2023/01/12 13:28:36 by hlesny           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/sort_utils.h"
+#ifndef CHECK_ARGS_H
+# define  CHECK_ARGS_H
 
-// max (a, b) = min (-a, -b)
-int     ft_min(int a, int b)
-{
-    if (a > b)
-        return (b);
-    return (a);
-}
+#include <limits.h>
+
+int     check_params(char **argv, int argc);
+
+#endif

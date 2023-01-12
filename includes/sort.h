@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   sort.h                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: Helene <Helene@student.42.fr>              +#+  +:+       +#+        */
+/*   By: hlesny <hlesny@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/19 00:23:16 by hlesny            #+#    #+#             */
-/*   Updated: 2023/01/10 23:12:16 by Helene           ###   ########.fr       */
+/*   Updated: 2023/01/12 14:12:07 by hlesny           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 # define SORT_H
 
 #include "instructions_utils.h"
+#include "sort_utils.h"
 
 typedef struct s_nodes
 {
@@ -22,23 +23,6 @@ typedef struct s_nodes
     int size_a;
     int size_b;
 }               t_nodes; // pointeurs sur premiers éléments des piles a et b, ainsi que la taille des deux piles, mise a jour
-
-typedef struct s_moves
-{
-    int cost;
-    int pos_a;
-    int ra;
-    int rb; // rr = min(ra, rb)
-    int rra;
-    int rrb; // rrr = min(rra, rrb)
-    int instruct[4];
-}           t_moves;
-
-typedef struct s_min_max
-{
-    int min;
-    int max;
-}               t_min_max;
 
 #endif
 

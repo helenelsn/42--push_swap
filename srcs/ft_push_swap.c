@@ -6,11 +6,12 @@
 /*   By: hlesny <hlesny@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/14 19:20:33 by hlesny            #+#    #+#             */
-/*   Updated: 2023/01/11 22:53:21 by hlesny           ###   ########.fr       */
+/*   Updated: 2023/01/12 16:07:36 by hlesny           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/sort.h"
+#include "../includes/check_args.h"
 
 void print_bot(t_elem *node_a, t_elem *node_b);
 
@@ -44,8 +45,8 @@ int main(int argc, char **argv)
         sort_data(&node_a, &node_b);
     
     //print_bot(node_a, node_b);
-    //ft_clear(&node_a);
-    //ft_clear(&node_b);
+    ft_clear(&node_a);
+    ft_clear(&node_b);
 }
 
 

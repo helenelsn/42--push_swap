@@ -1,21 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   sort_utils.c                                       :+:      :+:    :+:   */
+/*   sort_small_list.h                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: hlesny <hlesny@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/01/10 22:10:31 by Helene            #+#    #+#             */
-/*   Updated: 2023/01/12 16:06:42 by hlesny           ###   ########.fr       */
+/*   Created: 2023/01/12 13:37:08 by hlesny            #+#    #+#             */
+/*   Updated: 2023/01/12 14:03:59 by hlesny           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/sort_utils.h"
+#ifndef SORT_SMALL_LIST_H
+# define SORT_SMALL_LIST_H
 
-// max (a, b) = min (-a, -b)
-int     ft_min(int a, int b)
-{
-    if (a > b)
-        return (b);
-    return (a);
-}
+#include "sort.h" // ?
+
+void    sort_small_list(t_elem **node_a, t_elem **node_b);
+
+#endif

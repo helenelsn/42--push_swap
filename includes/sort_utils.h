@@ -1,21 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   sort_utils.c                                       :+:      :+:    :+:   */
+/*   sort_utils.h                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: hlesny <hlesny@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/01/10 22:10:31 by Helene            #+#    #+#             */
-/*   Updated: 2023/01/12 16:06:42 by hlesny           ###   ########.fr       */
+/*   Created: 2023/01/12 13:21:45 by hlesny            #+#    #+#             */
+/*   Updated: 2023/01/12 14:11:46 by hlesny           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/sort_utils.h"
+#ifndef SORT_UTILS_H
+# define SORT_UTILS_H
 
-// max (a, b) = min (-a, -b)
-int     ft_min(int a, int b)
-{
-    if (a > b)
-        return (b);
-    return (a);
-}
+#include "lists_utils.h"
+
+int     ft_min(int a, int b);
+int     in_range(int a, int b, int n);
+int     in_range_small(int a, int b, int n);
+
+#endif

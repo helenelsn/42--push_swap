@@ -6,7 +6,7 @@
 /*   By: hlesny <hlesny@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/14 20:54:14 by hlesny            #+#    #+#             */
-/*   Updated: 2023/01/11 23:34:27 by hlesny           ###   ########.fr       */
+/*   Updated: 2023/01/12 15:33:17 by hlesny           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,21 +23,10 @@ void    ft_swap(t_elem **first, int a)
     
     if (!first || !*first || ft_lst_size(first) < 2)
         return ;
-    if (a)
+    if (a == 1)
         printf("sa\n");
     else if (!a)
         printf("sb\n"); 
-    
-    /*
-    tmp2 = (*first)->prev;
-    tmp1 = (*first)->prev->prev;
-    tmp1->prev->next = tmp2;
-    tmp2->prev = tmp1->prev;
-    tmp1->prev = tmp2;
-    tmp1->next = *first;
-    tmp2->next = tmp1;
-    (*first)->prev = tmp1;
-    */
 
     tmp1 = *first; // le premier element de la liste est l'element au sommet de la pile (le premier argument)
     tmp2 = (*first)->next;
@@ -58,7 +47,7 @@ void    ft_push(t_elem **src, t_elem **dest, int a)
 
     if (!src || !*src || !dest|| !ft_lst_size(src))
         return ;
-    if (a)
+    if (a == 1)
         printf("pa\n");
     else if (!a)
         printf("pb\n");  
@@ -78,40 +67,66 @@ void    ft_push(t_elem **src, t_elem **dest, int a)
 
 // Décale d’une position vers le haut tous les élements de la pile. 
 // Le premier élément de la liste devient le dernier.
-void    ft_rotate(t_elem **node, int a)
+void    ft_rotate(t_elem **node, t_moves *moves, int a)
 {
     if (!node || !*node || ft_lst_size(node) < 2)
         return ;
-    if (a == 1)
+    else if (a == 1)
+    {
         printf("ra\n");
+        if (moves && moves->ra)
+            moves->ra--;
+    }
     else if (!a)
-        printf("rb\n");  
+    {
+        printf("rb\n");
+        if (moves && moves->rb)
+            moves->rb--;
+    }
     *node = (*node)->next;
 }
 
-void    ft_rrotate(t_elem **node_a, t_elem **node_b)
+void    ft_rrotate(t_elem **node_a, t_elem **node_b, t_moves *moves)
 {
-    ft_rotate(node_a, 2);
-    ft_rotate(node_b, 2);
+    ft_rotate(node_a, moves, 2);
+    ft_rotate(node_b, moves, 2);
+    if (moves)
+    {
+        moves->ra--;
+        moves->rb--;
+    }
     printf("rr\n");
 }
 
 // Décale d’une position vers le bas tous les élements de la pile. 
 // Le dernier élément de la liste devient le premier.
-void    ft_rev_rotate(t_elem **node, int a)
+void    ft_rev_rotate(t_elem **node, t_moves *moves, int a)
 {
     if (!node || !*node || ft_lst_size(node) < 2)
         return ;
-    if (a == 1)
+    else if (a == 1)
+    {
         printf("rra\n");
+        if (moves && moves->rra)
+            moves->rra--;
+    }
     else if (!a)
-        printf("rrb\n");  
+    {
+        printf("rrb\n");
+        if (moves && moves->rrb)
+            moves->rrb--;
+    }
     *node = (*node)->prev;
 }
 
-void    ft_rrev_rotate(t_elem **node_a, t_elem **node_b)
+void    ft_rrev_rotate(t_elem **node_a, t_elem **node_b, t_moves *moves)
 {
-    ft_rev_rotate(node_a, 2);
-    ft_rev_rotate(node_b, 2);
+    ft_rev_rotate(node_a, moves, 2);
+    ft_rev_rotate(node_b, moves, 2);
+    if (moves)
+    {
+        moves->rra--;
+        moves->rrb--;
+    }
     printf("rrr\n");
 }

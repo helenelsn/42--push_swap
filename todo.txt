@@ -1,0 +1,8 @@
+fonction qui check si la liste est triee : l'utilisera au debut pour check si elle est deja triee, et a la fin de notre tri pr savoir si a bien trie
+
+finir fonction qui free chaque element des deux listes chainees
+checker les leaks : peut rajouter une regle dans le makefile pour check ca ? 
+
+script shell qui genere des .h automatiquement 
+
+implementer un .c et .h pour les operations sur les matrices ?genre une struct qui s'apparenterait a une classe un peu

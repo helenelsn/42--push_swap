@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lists_utils.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: Helene <Helene@student.42.fr>              +#+  +:+       +#+        */
+/*   By: hlesny <hlesny@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/14 19:20:30 by hlesny            #+#    #+#             */
-/*   Updated: 2023/01/10 23:47:18 by Helene           ###   ########.fr       */
+/*   Updated: 2023/01/12 16:33:27 by hlesny           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,21 +84,31 @@ int     ft_lst_size(t_elem **first)
 	return (size);
 }
 
+
+// la transformer en liste simplement chainee et ensuite seulemt tout free ? 
+
 // free and delete all elements of a list
 void	ft_clear(t_elem **node)
 {
 	t_elem *tmp;
+	int size = ft_lst_size(node);
 	
 	if (!node || !*node) // ie si la liste n'existe pas, ou si elle est vide
 		return ;
 	tmp = *node;
-	while (tmp->next != *node)
+	while (size )
 	{
 		*node = (*node)->next;
+		tmp->prev = NULL;
+		tmp->next = NULL;
 		free(tmp);
+		tmp = NULL;
 		tmp = *node;
+		size--;
 	}
-	free(tmp);
-	tmp = NULL;
-	// node = NULL;  ??
+	// free(tmp->prev);
+	// tmp->prev = NULL;
+	// tmp->next = NULL;
+	// free(tmp);
+	// tmp = NULL;
 }
