@@ -5,4 +5,4 @@ checker les leaks : peut rajouter une regle dans le makefile pour check ca ?
 
 script shell qui genere des .h automatiquement 
 
-implementer un .c et .h pour les operations sur les matrices ?genre une struct qui s'apparenterait a une classe un peu
+implementer un .c et .h pour les operations sur les matrices ? genre une struct qui s'apparenterait a une classe un peu

@@ -6,7 +6,7 @@
 /*   By: Helene <Helene@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/14 20:54:51 by hlesny            #+#    #+#             */
-/*   Updated: 2023/01/10 23:47:33 by Helene           ###   ########.fr       */
+/*   Updated: 2023/01/13 20:02:08 by Helene           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ typedef struct s_elem
 int     ft_lst_size(t_elem **first);
 t_elem    *ft_new_elem(int nb);
 void    ft_add_back(t_elem **first, t_elem *new);
-void	ft_add_front(t_elem **first, t_elem *new);
+static void ft_del_one(t_elem **node);
 void	ft_clear(t_elem **node);
 
 #endif

@@ -3,15 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   ft_push_swap.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hlesny <hlesny@student.42.fr>              +#+  +:+       +#+        */
+/*   By: Helene <Helene@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/14 19:20:33 by hlesny            #+#    #+#             */
-/*   Updated: 2023/01/12 16:07:36 by hlesny           ###   ########.fr       */
+/*   Updated: 2023/01/13 19:53:29 by Helene           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/sort.h"
 #include "../includes/check_args.h"
+#include "../includes/sort_utils.h"
 
 void print_bot(t_elem *node_a, t_elem *node_b);
 
@@ -20,6 +21,7 @@ void print_bot(t_elem *node_a, t_elem *node_b);
 int main(int argc, char **argv)
 {
     int i;
+    int j;
     t_elem *node_a;
     t_elem *node_b;
     
@@ -32,21 +34,25 @@ int main(int argc, char **argv)
     }
     
     i = 1;
+    j = 0;
     node_a = NULL;
     node_b = NULL;
     while (i < argc)
     {
-        ft_add_back(&node_a, ft_new_elem(atoi(argv[i])));
+        while (argv[i][j]) // les string argv[i] sont bien null-terminated ouais ?
+        {
+            ft_add_back(&node_a, ft_new_elem(atoi(argv[i][j])));
+            j++;
+        }
         i++;
     }
+    if (is_sorted(node_a))
+        return (0);
     if (ft_lst_size(&node_a) < 8)
         sort_small_list(&node_a, &node_b);
     else
         sort_data(&node_a, &node_b);
-    
-    //print_bot(node_a, node_b);
-    ft_clear(&node_a);
-    ft_clear(&node_b);
+    return (ft_clear(&node_a), ft_clear(&node_b), 0);
 }
 
 
