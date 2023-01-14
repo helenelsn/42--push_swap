@@ -6,7 +6,7 @@
 /*   By: hlesny <hlesny@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/08 01:58:05 by hlesny            #+#    #+#             */
-/*   Updated: 2023/01/14 18:46:55 by hlesny           ###   ########.fr       */
+/*   Updated: 2023/01/14 20:32:45 by hlesny           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ long long	ft_atoi(const char *nptr, int *j)
 			neg = -neg;
 		i++;
 	}
-	while (nptr[i] && (nptr[i] >= '0' && nptr[i] <= '9') && number <= __INT_MAX__ )
+	while (nptr[i] && (nptr[i] >= '0' && nptr[i] <= '9') && number <= __INT_MAX__)
 	{
 		number = number * 10 + (nptr[i] - 48);
 		i++;

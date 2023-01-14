@@ -6,7 +6,7 @@
 /*   By: hlesny <hlesny@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/10 22:10:31 by Helene            #+#    #+#             */
-/*   Updated: 2023/01/14 16:41:34 by hlesny           ###   ########.fr       */
+/*   Updated: 2023/01/14 19:46:01 by hlesny           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,5 +32,5 @@ int     is_sorted(t_elem *node)
             return (0);
         current = current->next;
     }
-    return (1); // retourne 1 meme si la liste n'a qu'un élément car la considère comme triée ?
+    return (1); // retourne 1 meme si la liste n'a qu'un élément car la considère comme triée
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   checker.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: Helene <Helene@student.42.fr>              +#+  +:+       +#+        */
+/*   By: hlesny <hlesny@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/13 19:56:54 by Helene            #+#    #+#             */
-/*   Updated: 2023/01/13 21:16:48 by Helene           ###   ########.fr       */
+/*   Updated: 2023/01/14 21:25:57 by hlesny           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,17 +25,17 @@ int    apply_instr(t_elem **node_a, t_elem **node_b, char *instruction)
     else if (instruction == "sb")
         ft_swap(node_b, 2);
     else if (instruction == "ra")
-        ft_rotate(node_a, NULL, 2);
+        ft_rotate(node_a, 0, 2);
     else if (instruction == "rb")
-        ft_rotate(node_b, NULL, 2);
+        ft_rotate(node_b, 0, 2);
     else if (instruction == "rra")
-        ft_rev_rotate(node_a, NULL, 2);
+        ft_rev_rotate(node_a, 0, 2);
     else if (instruction == "rrb")
-        ft_rev_rotate(node_b, NULL, 2);
+        ft_rev_rotate(node_b, 0, 2);
     else if (instruction == "rr")
-        ft_rrotate(node_a, node_b, NULL);
+        ft_rrotate(node_a, node_b, 0);
     else if (instruction == "rrr")
-        ft_rrev_rotate(node_a, node_b, NULL);
+        ft_rrev_rotate(node_a, node_b, 0);
     else
         return (0);
     return (1);
@@ -98,8 +98,8 @@ int main(int argc, char **argv)
     
     i = 1;
     j = 0;
-    node_a = NULL;
-    node_b = NULL;
+    node_a = 0;
+    node_b = 0;
     while (i < argc)
     {
         while (argv[i][j]) // les string argv[i] sont bien null-terminated ouais ?

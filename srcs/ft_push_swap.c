@@ -6,7 +6,7 @@
 /*   By: hlesny <hlesny@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/14 19:20:33 by hlesny            #+#    #+#             */
-/*   Updated: 2023/01/14 19:22:07 by hlesny           ###   ########.fr       */
+/*   Updated: 2023/01/14 21:05:57 by hlesny           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,18 +21,17 @@ void print_bot(t_elem *node_a, t_elem *node_b);
 int main(int argc, char **argv)
 {
     int i;
-    int j;
     int nb;
     t_elem *node_a;
     t_elem *node_b;
     
     if (argc < 2)
         return 0;
-    if (!check_params(argv, argc))
-    {
-        write(2, "Error\n", 6);
-        return (-1);
-    }
+    // if (!check_params(argv, argc))
+    // {
+    //     write(2, "Error\n", 6);
+    //     return (-1);
+    // }
     
     i = 1;
     nb = 0; // utile ?
@@ -41,20 +40,24 @@ int main(int argc, char **argv)
     // implementer fonction void get_and_check_data(int argc, char **argv, t_elem **node_a)
     while (i < argc)
     {
-        j = 0;
-        while (argv[i][j]) // les string argv[i] sont bien null-terminated ouais ? oui
+        if (!check_list(&node_a, argv[i])) 
         {
-            nb = ft_atoi(argv[i], &j);
-            ft_add_back(&node_a, ft_new_elem(nb));
-        }
+            ft_clear(&node_a); // pas la peine de free node_b car est encore a NULL ici 
+            write(2, "Error\n", 6);
+            return (-1);
+        }  
         i++;
     }
+    // si cree la liste chainee et ensuite seulement check si les arguments sont valides,
+    //comment se comporrte ft_atoi si il ne prend pas un nombre en argument ?
+    
     if (is_sorted(node_a))
         return (0);
     if (ft_lst_size(&node_a) < 8)
         sort_small_list(&node_a, &node_b);
     else
         sort_data(&node_a, &node_b);
+    //print_bot(node_a, node_b);
     return (ft_clear(&node_a), ft_clear(&node_b), 0);
 }
 
