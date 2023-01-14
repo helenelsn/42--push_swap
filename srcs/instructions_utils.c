@@ -6,7 +6,7 @@
 /*   By: hlesny <hlesny@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/14 20:54:14 by hlesny            #+#    #+#             */
-/*   Updated: 2023/01/12 20:20:56 by hlesny           ###   ########.fr       */
+/*   Updated: 2023/01/14 19:24:22 by hlesny           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,6 @@ void    ft_swap(t_elem **first, int a)
     (*first) = tmp2;
 }
 
-
 // push b : Prend le premier élément au sommet de a et le met sur b. Ne fait rien si a est vide.
 void    ft_push(t_elem **src, t_elem **dest, int a)
 {
@@ -54,7 +53,7 @@ void    ft_push(t_elem **src, t_elem **dest, int a)
         
     tmp = *src;
     if (ft_lst_size(src) == 1)
-            *src = NULL; // est-ce aue ca met aussi tmp a NULL ? car ne veut pas ca
+            *src = NULL; // est-ce que ca met aussi tmp a NULL ? car ne veut pas ca
     else
     {
         *src = (*src)->next;

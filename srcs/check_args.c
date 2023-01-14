@@ -6,13 +6,13 @@
 /*   By: hlesny <hlesny@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/12 13:27:13 by hlesny            #+#    #+#             */
-/*   Updated: 2023/01/12 13:48:30 by hlesny           ###   ########.fr       */
+/*   Updated: 2023/01/14 18:48:09 by hlesny           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/check_args.h"
 
-long long	ft_atoi(const char *nptr); // le mettre dans le .h ?
+ // le mettre dans le .h ?
 
 int     ft_strlen(char *str)
 {
@@ -60,7 +60,7 @@ int     is_an_int(char *str)
 {
     long long n;
 
-    n = ft_atoi(str);
+    n = ft_atoi(str, 0);
     if (n < INT_MIN || n > INT_MAX)
         return (0);
     return (1);

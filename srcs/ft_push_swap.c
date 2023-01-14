@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_push_swap.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: Helene <Helene@student.42.fr>              +#+  +:+       +#+        */
+/*   By: hlesny <hlesny@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/14 19:20:33 by hlesny            #+#    #+#             */
-/*   Updated: 2023/01/13 19:53:29 by Helene           ###   ########.fr       */
+/*   Updated: 2023/01/14 19:22:07 by hlesny           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@ int main(int argc, char **argv)
 {
     int i;
     int j;
+    int nb;
     t_elem *node_a;
     t_elem *node_b;
     
@@ -34,15 +35,17 @@ int main(int argc, char **argv)
     }
     
     i = 1;
-    j = 0;
+    nb = 0; // utile ?
     node_a = NULL;
     node_b = NULL;
+    // implementer fonction void get_and_check_data(int argc, char **argv, t_elem **node_a)
     while (i < argc)
     {
-        while (argv[i][j]) // les string argv[i] sont bien null-terminated ouais ?
+        j = 0;
+        while (argv[i][j]) // les string argv[i] sont bien null-terminated ouais ? oui
         {
-            ft_add_back(&node_a, ft_new_elem(atoi(argv[i][j])));
-            j++;
+            nb = ft_atoi(argv[i], &j);
+            ft_add_back(&node_a, ft_new_elem(nb));
         }
         i++;
     }

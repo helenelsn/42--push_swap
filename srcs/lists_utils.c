@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lists_utils.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: Helene <Helene@student.42.fr>              +#+  +:+       +#+        */
+/*   By: hlesny <hlesny@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/14 19:20:30 by hlesny            #+#    #+#             */
-/*   Updated: 2023/01/13 20:01:38 by Helene           ###   ########.fr       */
+/*   Updated: 2023/01/14 19:23:55 by hlesny           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,26 @@ t_elem    *ft_new_elem(int nb)
 	new->prev = NULL;
 	new->next = NULL;
 	return (new);
+}
+
+void	ft_add_front(t_elem **first, t_elem *new)
+{
+	if (!first)
+		return ;
+	if (!*first || !(*first)->next)
+	{
+		*first = new;
+		(*first)->prev = new;
+		(*first)->next = new;
+	}
+	else
+	{
+		new->next = *first;
+		new->prev = (*first)->prev;
+		(*first)->prev->next = new;
+		(*first)->prev = new;
+		*first = new;
+	}
 }
 
 void    ft_add_back(t_elem **first, t_elem *new) // *fl equivalent a **first et **last
@@ -65,7 +85,7 @@ int     ft_lst_size(t_elem **first)
 }
 
 // free and deletes first element of the list (ie *node)
-static void	ft_del_first(t_elem **node)
+void	ft_del_first(t_elem **node)
 {
 	t_elem *tmp;
 	
