@@ -3,5 +3,6 @@ a.out.dSYM
 push_swap_tester
 test.c
 test2.c
-objs
+objs/
 todo.txt
+.vscode/
