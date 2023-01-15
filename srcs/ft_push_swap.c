@@ -6,7 +6,7 @@
 /*   By: hlesny <hlesny@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/14 19:20:33 by hlesny            #+#    #+#             */
-/*   Updated: 2023/01/14 21:05:57 by hlesny           ###   ########.fr       */
+/*   Updated: 2023/01/15 21:46:36 by hlesny           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,12 +27,7 @@ int main(int argc, char **argv)
     
     if (argc < 2)
         return 0;
-    // if (!check_params(argv, argc))
-    // {
-    //     write(2, "Error\n", 6);
-    //     return (-1);
-    // }
-    
+
     i = 1;
     nb = 0; // utile ?
     node_a = NULL;
@@ -51,7 +46,7 @@ int main(int argc, char **argv)
     // si cree la liste chainee et ensuite seulement check si les arguments sont valides,
     //comment se comporrte ft_atoi si il ne prend pas un nombre en argument ?
     
-    if (is_sorted(node_a))
+    if (is_sorted(&node_a))
         return (0);
     if (ft_lst_size(&node_a) < 8)
         sort_small_list(&node_a, &node_b);

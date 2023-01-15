@@ -6,7 +6,7 @@
 /*   By: hlesny <hlesny@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/10 22:10:31 by Helene            #+#    #+#             */
-/*   Updated: 2023/01/14 19:46:01 by hlesny           ###   ########.fr       */
+/*   Updated: 2023/01/15 20:16:00 by hlesny           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,14 +19,14 @@ int     ft_min(int a, int b)
     return (a);
 }
 
-int     is_sorted(t_elem *node)
+int     is_sorted(t_elem **node)
 {
     t_elem *current;
 
-    if (!node)
-        return (-1);
-    current = node->next;
-    while (current != node)
+    if (!node || !*node)
+        return (0);
+    current = (*node)->next;
+    while (current != (*node))
     {
         if (current->prev->nb > current->nb)
             return (0);

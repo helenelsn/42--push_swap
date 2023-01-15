@@ -6,7 +6,7 @@
 /*   By: hlesny <hlesny@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/14 22:02:14 by hlesny            #+#    #+#             */
-/*   Updated: 2023/01/12 14:10:35 by hlesny           ###   ########.fr       */
+/*   Updated: 2023/01/15 21:52:48 by hlesny           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,11 +33,12 @@ typedef struct s_min_max
     int max;
 }               t_min_max;
 
-void    ft_swap(t_elem **first, int a) ;
+void    ft_swap(t_elem **first, int a);
+void    ft_sswap(t_elem **node_a, t_elem **node_b);
 void    ft_push(t_elem **src, t_elem **dest, int a);
 void    ft_rotate(t_elem **node, t_moves *moves, int a);
-void    ft_rrotate(t_elem **node_a, t_elem **node_b, t_moves *moves);
+void    ft_rrotate(t_elem **node_a, t_elem **node_b, t_moves *moves, int checker);
 void    ft_rev_rotate(t_elem **node, t_moves *moves, int a);
-void    ft_rrev_rotate(t_elem **node_a, t_elem **node_b, t_moves *moves);
+void    ft_rrev_rotate(t_elem **node_a, t_elem **node_b, t_moves *moves, int checker);
 
 #endif

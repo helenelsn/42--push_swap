@@ -6,7 +6,7 @@
 /*   By: hlesny <hlesny@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/22 04:14:47 by hlesny            #+#    #+#             */
-/*   Updated: 2023/01/12 16:03:44 by hlesny           ###   ########.fr       */
+/*   Updated: 2023/01/15 21:54:43 by hlesny           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -231,7 +231,7 @@ void    move_data(t_elem **src, t_elem **dest, t_min_max *min_max_dest, int a_to
     // puis effectue cette suite d'instructions, stockée dans moves
     while (moves.ra && moves.rb)
     {
-        ft_rrotate(src, dest, &moves);
+        ft_rrotate(src, dest, &moves, 0);
         //moves.ra--;
         //moves.rb--;
     }
@@ -239,7 +239,7 @@ void    move_data(t_elem **src, t_elem **dest, t_min_max *min_max_dest, int a_to
     {
         // ou alors passer &move en argument des fonctions push, swap, rotate etc 
         // et decrementer ra, rb, rr, etc direct ds ces fonctions la
-        ft_rrev_rotate(src, dest, &moves); 
+        ft_rrev_rotate(src, dest, &moves, 0); 
         //moves.rra--;
         //moves.rrb--;
     }

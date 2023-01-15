@@ -6,7 +6,7 @@
 /*   By: hlesny <hlesny@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/14 20:54:14 by hlesny            #+#    #+#             */
-/*   Updated: 2023/01/14 19:24:22 by hlesny           ###   ########.fr       */
+/*   Updated: 2023/01/15 21:52:27 by hlesny           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,12 @@ void    ft_swap(t_elem **first, int a)
     tmp2->next->prev = tmp1;
     tmp2->next = tmp1;
     (*first) = tmp2;
+}
+
+void    ft_sswap(t_elem **node_a, t_elem **node_b)
+{
+    ft_swap(node_a, 2);
+    ft_swap(node_b, 2);
 }
 
 // push b : Prend le premier élément au sommet de a et le met sur b. Ne fait rien si a est vide.
@@ -85,7 +91,7 @@ void    ft_rotate(t_elem **node, t_moves *moves, int a)
     *node = (*node)->next;
 }
 
-void    ft_rrotate(t_elem **node_a, t_elem **node_b, t_moves *moves)
+void    ft_rrotate(t_elem **node_a, t_elem **node_b, t_moves *moves, int checker)
 {
     ft_rotate(node_a, moves, 2);
     ft_rotate(node_b, moves, 2);
@@ -94,7 +100,8 @@ void    ft_rrotate(t_elem **node_a, t_elem **node_b, t_moves *moves)
         moves->ra--;
         moves->rb--;
     }
-    printf("rr\n");
+    if (!checker)
+        printf("rr\n");
 }
 
 // Décale d’une position vers le bas tous les élements de la pile. 
@@ -118,7 +125,7 @@ void    ft_rev_rotate(t_elem **node, t_moves *moves, int a)
     *node = (*node)->prev;
 }
 
-void    ft_rrev_rotate(t_elem **node_a, t_elem **node_b, t_moves *moves)
+void    ft_rrev_rotate(t_elem **node_a, t_elem **node_b, t_moves *moves, int checker)
 {
     ft_rev_rotate(node_a, moves, 2);
     ft_rev_rotate(node_b, moves, 2);
@@ -127,5 +134,6 @@ void    ft_rrev_rotate(t_elem **node_a, t_elem **node_b, t_moves *moves)
         moves->rra--;
         moves->rrb--;
     }
-    printf("rrr\n");
+     if (!checker)
+        printf("rrr\n");
 }

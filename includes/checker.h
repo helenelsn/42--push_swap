@@ -1,21 +1,33 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   sort_utils.h                                       :+:      :+:    :+:   */
+/*   checker.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: hlesny <hlesny@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/01/12 13:21:45 by hlesny            #+#    #+#             */
-/*   Updated: 2023/01/15 20:21:39 by hlesny           ###   ########.fr       */
+/*   Created: 2023/01/13 19:57:04 by Helene            #+#    #+#             */
+/*   Updated: 2023/01/15 21:24:13 by hlesny           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef SORT_UTILS_H
-# define SORT_UTILS_H
+#ifndef CHECKER_H
+# define CHECKER_H
 
-#include "lists_utils.h"
+#include "../includes/sort.h"
+#include "../includes/checker_utils.h"
+#include "../includes/check_args.h"
+#include <stdlib.h>
 
-int     ft_min(int a, int b);
-int     is_sorted(t_elem **node);
+# define PA 'a'
+# define PB 'b'
+# define SA 'c'
+# define SB 'd'
+# define SS 'e' 
+# define RA 'f'
+# define RB 'g'
+# define RR 'h'
+# define RRA 'i'
+# define RRB 'j'
+# define RRR 'k'
 
 #endif

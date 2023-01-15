@@ -1,21 +1,14 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   sort_utils.h                                       :+:      :+:    :+:   */
+/*   checker_utils.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: hlesny <hlesny@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/01/12 13:21:45 by hlesny            #+#    #+#             */
-/*   Updated: 2023/01/15 20:21:39 by hlesny           ###   ########.fr       */
+/*   Created: 2023/01/15 16:22:45 by hlesny            #+#    #+#             */
+/*   Updated: 2023/01/15 16:23:48 by hlesny           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef SORT_UTILS_H
-# define SORT_UTILS_H
+#include "../includes/checker_utils.h"
 
-#include "lists_utils.h"
-
-int     ft_min(int a, int b);
-int     is_sorted(t_elem **node);
-
-#endif
