@@ -6,53 +6,35 @@
 /*   By: hlesny <hlesny@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/14 19:20:33 by hlesny            #+#    #+#             */
-/*   Updated: 2023/01/15 21:46:36 by hlesny           ###   ########.fr       */
+/*   Updated: 2023/01/16 18:39:27 by hlesny           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/sort.h"
-#include "../includes/check_args.h"
-#include "../includes/sort_utils.h"
+
+#include "../includes/ft_push_swap.h"
 
 void print_bot(t_elem *node_a, t_elem *node_b);
 
 // !!!!!! REMPLACER LES ATOI PAR MON FT_ATOI DANS LE CODE
 
+
 int main(int argc, char **argv)
 {
-    int i;
-    int nb;
     t_elem *node_a;
     t_elem *node_b;
     
     if (argc < 2)
         return 0;
-
-    i = 1;
-    nb = 0; // utile ?
     node_a = NULL;
     node_b = NULL;
-    // implementer fonction void get_and_check_data(int argc, char **argv, t_elem **node_a)
-    while (i < argc)
-    {
-        if (!check_list(&node_a, argv[i])) 
-        {
-            ft_clear(&node_a); // pas la peine de free node_b car est encore a NULL ici 
-            write(2, "Error\n", 6);
-            return (-1);
-        }  
-        i++;
-    }
-    // si cree la liste chainee et ensuite seulement check si les arguments sont valides,
-    //comment se comporrte ft_atoi si il ne prend pas un nombre en argument ?
-    
+    if (!get_and_check_data(argc, argv, &node_a))
+        return (0);
     if (is_sorted(&node_a))
         return (0);
     if (ft_lst_size(&node_a) < 8)
         sort_small_list(&node_a, &node_b);
     else
         sort_data(&node_a, &node_b);
-    //print_bot(node_a, node_b);
     return (ft_clear(&node_a), ft_clear(&node_b), 0);
 }
 

@@ -6,7 +6,7 @@
 /*   By: hlesny <hlesny@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/12 13:36:53 by hlesny            #+#    #+#             */
-/*   Updated: 2023/01/12 14:04:47 by hlesny           ###   ########.fr       */
+/*   Updated: 2023/01/16 18:05:57 by hlesny           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,8 +22,6 @@ void    sort_three(t_elem **node)
     int y;
     int z;
      
-    if (!node)
-        return ;
     x = (*node)->nb;
     y = (*node)->next->nb;
     z = (*node)->prev->nb;
@@ -90,7 +88,6 @@ void    sort_small(t_elem **node_a, t_elem **node_b)
     sort_three(node_a);
     m.min = (*node_a)->nb; // car la pile a est mtn triée
     m.max = (*node_a)->prev->nb; // car la pile a est mtn triée
-
     while (ft_lst_size(node_b))
         move_data(node_b, node_a, &m, 0); 
     get_in_order_small(node_a, 1, m);

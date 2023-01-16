@@ -6,7 +6,7 @@
 /*   By: hlesny <hlesny@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/14 22:02:14 by hlesny            #+#    #+#             */
-/*   Updated: 2023/01/15 21:52:48 by hlesny           ###   ########.fr       */
+/*   Updated: 2023/01/16 18:01:51 by hlesny           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,6 @@
 # define INSTRUCTIONS_UTILS_H
 
 #include "lists_utils.h" 
-//#include "sort.h" // autre maniere de faire ? en a besoin pr la definition de la structure t_moves 
 
 typedef struct s_moves
 {

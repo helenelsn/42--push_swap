@@ -6,11 +6,23 @@
 /*   By: hlesny <hlesny@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/25 19:05:22 by hlesny            #+#    #+#             */
-/*   Updated: 2023/01/15 22:37:04 by hlesny           ###   ########.fr       */
+/*   Updated: 2023/01/16 18:44:46 by hlesny           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/get_next_line.h"
+
+int     ft_strlen(char *str)
+{
+    int i;
+    
+    if (!str)
+        return (0);
+    i = 0;
+    while (str[i])
+        i++;
+    return (i);
+}
 
 char	*ft_substr(char *str, int len)
 {

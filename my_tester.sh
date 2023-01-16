@@ -1,6 +1,6 @@
 #!/bin/bash
 
-random_seq=`seq -5 5 | shuf | tr '\n' ' '`
+random_seq=`seq -250 250 | shuf | tr '\n' ' '`
 
 echo $random_seq
 

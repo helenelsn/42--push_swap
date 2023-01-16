@@ -6,7 +6,7 @@
 /*   By: hlesny <hlesny@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/19 00:23:16 by hlesny            #+#    #+#             */
-/*   Updated: 2023/01/12 14:12:07 by hlesny           ###   ########.fr       */
+/*   Updated: 2023/01/16 18:48:16 by hlesny           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 
 #include "instructions_utils.h"
 #include "sort_utils.h"
+#include "check_args.h"
 
 typedef struct s_nodes
 {
@@ -24,7 +25,8 @@ typedef struct s_nodes
     int size_b;
 }               t_nodes; // pointeurs sur premiers éléments des piles a et b, ainsi que la taille des deux piles, mise a jour
 
-#endif
+
+int    get_and_check_data(int argc, char **argv, t_elem **node_a);
 
 int     check_params(char **params, int argc);
 int     ft_min(int a, int b);
@@ -43,3 +45,5 @@ int     get_min(t_elem **node);
 int     get_pos(t_elem **node, int nb);
 void    get_in_order_small(t_elem **node, int a, t_min_max m);
 void    get_in_order(t_elem **node, int a, t_min_max m);
+
+#endif

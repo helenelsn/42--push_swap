@@ -6,16 +6,32 @@
 /*   By: hlesny <hlesny@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/22 04:14:47 by hlesny            #+#    #+#             */
-/*   Updated: 2023/01/15 21:54:43 by hlesny           ###   ########.fr       */
+/*   Updated: 2023/01/16 19:06:21 by hlesny           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/sort.h"
-// #include "instructions_utils.h"
 
 
 void print_bot(t_elem *node_a, t_elem *node_b);
 
+int    get_and_check_data(int argc, char **argv, t_elem **node_a) // a mettre dans push_swap.c aussi
+{
+    int i;
+
+    i = 1;
+    while (i < argc)
+    {
+        if (!check_list(node_a, argv[i])) 
+        {
+            ft_clear(node_a); // pas la peine de free node_b car est encore a NULL ici 
+            write(2, "Error\n", 6);
+            return (0);
+        }  
+        i++;
+    }
+    return (1);
+}
 
 int     get_pos(t_elem **node, int nb)
 {
@@ -196,7 +212,6 @@ void    get_min_cost(t_elem **node_a, t_elem **node_b, t_moves *moves, t_min_max
     int pos_a;
 
     pos_a = 0; // 0 correspond à l'élément au sommet de la pile
-    
     init_moves(&moves_current, pos_a);
     if (a_to_b)
         get_cost(node_a, node_b, (*node_a)->nb, &moves_current, min_max_b);
@@ -204,7 +219,6 @@ void    get_min_cost(t_elem **node_a, t_elem **node_b, t_moves *moves, t_min_max
         get_cost_small(node_a, node_b, (*node_a)->nb, &moves_current, min_max_b);
     *moves = moves_current;
     current_a = (*node_a)->next;
-    
     while (current_a != *node_a)
     {
         pos_a++;
@@ -225,44 +239,20 @@ void    move_data(t_elem **src, t_elem **dest, t_min_max *min_max_dest, int a_to
 {
     t_moves moves;
     
-    //print_bot(*src, *dest);
     init_moves(&moves, 0);
-    get_min_cost(src, dest, &moves, min_max_dest, a_to_b); // détermine quelles instructions éffectuer sur les piles a et b afin d'obtenir un cout minimal
-    // puis effectue cette suite d'instructions, stockée dans moves
+    get_min_cost(src, dest, &moves, min_max_dest, a_to_b);
     while (moves.ra && moves.rb)
-    {
         ft_rrotate(src, dest, &moves, 0);
-        //moves.ra--;
-        //moves.rb--;
-    }
     while (moves.rra && moves.rrb)
-    {
-        // ou alors passer &move en argument des fonctions push, swap, rotate etc 
-        // et decrementer ra, rb, rr, etc direct ds ces fonctions la
         ft_rrev_rotate(src, dest, &moves, 0); 
-        //moves.rra--;
-        //moves.rrb--;
-    }
     while (moves.ra)
-    {
         ft_rotate(src, &moves, 1);
-        //moves.ra--;
-    }
     while (moves.rb)
-    {
         ft_rotate(dest, &moves, 0);
-        //moves.rb--;
-    }
     while (moves.rra)
-    {
         ft_rev_rotate(src, &moves, 1);
-        //moves.rra--;
-    }
     while (moves.rrb)
-    {
         ft_rev_rotate(dest, &moves, 0);
-        //moves.rrb--;
-    }
     if (a_to_b)
         ft_push(src, dest, 0);
     else
